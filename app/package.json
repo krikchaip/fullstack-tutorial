@@ -1,0 +1,14 @@
+{
+  "name": "@fullstack-tutorial/app",
+  "description": "Server-sided frontend application using NextJS",
+  "license": "MIT",
+  "engines": {
+    "node": "^14.9.0"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "start": "echo \"Application Started!\""
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

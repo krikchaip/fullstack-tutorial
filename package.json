@@ -1,0 +1,16 @@
+{
+  "name": "fullstack-tutorial",
+  "description": "Fullstack React GraphQL TypeScript",
+  "license": "MIT",
+  "engines": {
+    "node": "^14.9.0"
+  },
+  "private": true,
+  "workspaces": [
+    "app",
+    "server"
+  ],
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
