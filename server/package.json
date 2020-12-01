@@ -10,7 +10,10 @@
     "dev": "ts-node-dev -r tsconfig-paths/register src",
     "start": "echo \"Server Started!\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "graphql": "^15.4.0"
+  },
   "devDependencies": {
     "@types/node": "^14.14.10",
     "ts-node-dev": "^1.0.0",
