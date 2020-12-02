@@ -6,5 +6,6 @@ inspired from [Ben Awad Fullstack Tutorial](https://www.youtube.com/watch?v=I6yp
 
 - [ ] setup ESLint for Typescript
 - [ ] setup Github Actions
+- [ ] setup e2e test using cypress
 - [ ] deploy to Heroku
 - [ ] `dockerfile` (docker image) for both `app` and `server`

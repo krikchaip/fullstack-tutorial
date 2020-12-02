@@ -11,7 +11,11 @@
     "lib": ["ESNext"],
     "module": "CommonJS",
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@config/*": ["config/*"],
+      "@lib/*": ["lib/*"],
+      "@test/*": ["test/*"]
+    }
   },
   "ts-node": {
     "files": true
