@@ -5,6 +5,7 @@ inspired from [Ben Awad Fullstack Tutorial](https://www.youtube.com/watch?v=I6yp
 ## 📝 Todos
 
 - [ ] setup ESLint for Typescript
+- [ ] pre-commit hooks, lint-staged
 - [ ] setup Github Actions
 - [ ] setup e2e test using cypress
 - [ ] deploy to Heroku
