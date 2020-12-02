@@ -1,6 +1,7 @@
-import 'reflect-metadata'
-
 import { ApolloServer, gql } from 'apollo-server'
+import { createConnection } from 'typeorm'
+
+import { ormconfig } from '../ormconfig'
 
 const server = new ApolloServer({
   typeDefs: gql`
@@ -29,9 +30,11 @@ const server = new ApolloServer({
   }
 })
 
-async function bootstrap() {
-  const { url } = await server.listen({ port: 3000 })
-  console.log(`🚀 Server ready at ${url}`)
-}
+export default async function bootstrap() {
+  const db = await createConnection(ormconfig.default)
+  const info = await server.listen({ port: 3000 })
 
-bootstrap()
+  console.log(`🚀 Server ready at ${info.url}`)
+
+  return { server: info.server, db }
+}

@@ -13,7 +13,6 @@
     "module": "CommonJS",
     "baseUrl": ".",
     "paths": {
-      "config/*": ["config/*"],
       "db/*": ["db/*"],
       "lib/*": ["lib/*"],
       "test/*": ["test/*"]
