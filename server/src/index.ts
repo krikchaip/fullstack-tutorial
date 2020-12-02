@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { ApolloServer, gql } from 'apollo-server'
 
 const server = new ApolloServer({
@@ -27,6 +29,9 @@ const server = new ApolloServer({
   }
 })
 
-server.listen({ port: 3000 }).then(({ url }) => {
+async function bootstrap() {
+  const { url } = await server.listen({ port: 3000 })
   console.log(`🚀 Server ready at ${url}`)
-})
+}
+
+bootstrap()
