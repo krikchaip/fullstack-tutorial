@@ -17,4 +17,7 @@ export const ormconfig: Record<'default', ConnectionOptions> = {
   }
 }
 
+export const current =
+  ormconfig[(process.env.NODE_ENV ?? 'default') as keyof typeof ormconfig]
+
 export default Object.values(ormconfig) as ConnectionOptions[]

@@ -1,7 +1,7 @@
 import { ApolloServer, gql } from 'apollo-server'
 import { createConnection } from 'typeorm'
 
-import { ormconfig } from '../ormconfig'
+import { current } from '../ormconfig'
 
 const server = new ApolloServer({
   typeDefs: gql`
@@ -31,7 +31,7 @@ const server = new ApolloServer({
 })
 
 export default async function bootstrap() {
-  const db = await createConnection(ormconfig.default)
+  const db = await createConnection(current)
   const info = await server.listen({ port: 3000 })
 
   console.log(`🚀 Server ready at ${info.url}`)
