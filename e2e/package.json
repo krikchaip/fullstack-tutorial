@@ -1,0 +1,14 @@
+{
+  "name": "@fullstack-tutorial/e2e",
+  "description": "E2E Testing for the project using Cypress",
+  "license": "MIT",
+  "engines": {
+    "node": "^14.9.0"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "start": "echo \"E2E Testing Started!\""
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -8,6 +8,7 @@
   "private": true,
   "workspaces": [
     "app",
+    "e2e",
     "server"
   ],
   "scripts": {},
