@@ -10,7 +10,7 @@ import {
 @Entity()
 export default class Post extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number
+  id: string
 
   @Column()
   title: string
