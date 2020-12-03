@@ -1,4 +1,3 @@
-import path from 'path'
 import { ConnectionOptions } from 'typeorm'
 
 export const ormconfig: Record<'default', ConnectionOptions> = {
@@ -13,7 +12,10 @@ export const ormconfig: Record<'default', ConnectionOptions> = {
     schema: 'public',
     synchronize: true,
     logging: false,
-    entities: [path.join(__dirname, '../src/entities/*.ts')]
+    entities: ['src/entities/*.ts'],
+    migrations: ['db/migration/*.ts'],
+    migrationsTableName: '__typeorm_migrations__',
+    cli: { migrationsDir: 'db/migration' }
   }
 }
 
