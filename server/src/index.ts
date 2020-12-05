@@ -1,34 +1,10 @@
-import { ApolloServer, gql } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
 import { createConnection } from 'typeorm'
 
+import { schema } from 'resolvers'
 import { current } from '../ormconfig'
 
-const server = new ApolloServer({
-  typeDefs: gql`
-    type Query {
-      books: [Book]
-    }
-
-    type Book {
-      title: String
-      author: String
-    }
-  `,
-  resolvers: {
-    Query: {
-      books: () => [
-        {
-          title: 'The Awakening',
-          author: 'Kate Chopin'
-        },
-        {
-          title: 'City of Glass',
-          author: 'Paul Auster'
-        }
-      ]
-    }
-  }
-})
+const server = new ApolloServer({ schema })
 
 export default async function bootstrap() {
   const db = await createConnection(current)

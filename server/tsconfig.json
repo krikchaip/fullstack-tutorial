@@ -15,7 +15,9 @@
     "paths": {
       "db/*": ["db/*"],
       "lib/*": ["lib/*"],
-      "test/*": ["test/*"]
+      "test/*": ["test/*"],
+      "entities": ["src/entities"],
+      "resolvers": ["src/resolvers"]
     }
   },
   "ts-node": {
