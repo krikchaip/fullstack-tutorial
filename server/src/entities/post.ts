@@ -8,7 +8,7 @@ import {
 } from 'typeorm'
 
 @Entity()
-export default class Post extends BaseEntity {
+export class Post extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -16,8 +16,8 @@ export default class Post extends BaseEntity {
   title: string
 
   @CreateDateColumn()
-  createdAt: Date
+  created_at: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updated_at: Date
 }

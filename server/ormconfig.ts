@@ -1,4 +1,10 @@
-import { ConnectionOptions } from 'typeorm'
+import { ConnectionOptions, DefaultNamingStrategy } from 'typeorm'
+
+class NamingStrategy extends DefaultNamingStrategy {
+  joinColumnName = (prop: string) => prop + '_id'
+  joinTableColumnName = (table: string) => table + '_id'
+  joinTableName = (table1: string, table2: string) => table1 + ' & ' + table2
+}
 
 export const ormconfig: Record<'default', ConnectionOptions> = {
   default: {
@@ -12,10 +18,11 @@ export const ormconfig: Record<'default', ConnectionOptions> = {
     schema: 'public',
     synchronize: true,
     logging: false,
-    entities: ['src/entities/*.ts'],
+    entities: ['src/entities/!(index).ts'],
     migrations: ['db/migration/*.ts'],
     migrationsTableName: '__typeorm_migrations__',
-    cli: { migrationsDir: 'db/migration' }
+    cli: { migrationsDir: 'db/migration' },
+    namingStrategy: new NamingStrategy()
   }
 }
 
