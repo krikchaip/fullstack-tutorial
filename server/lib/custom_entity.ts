@@ -6,15 +6,20 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
+import { Field, ID, ObjectType } from 'type-graphql'
 import { validateOrReject } from 'class-validator'
 
+@ObjectType({ isAbstract: true })
 export abstract class CustomEntity extends BaseEntity {
+  @Field(of => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string
 
+  @Field()
   @CreateDateColumn()
   created_at: Date
 
+  @Field()
   @UpdateDateColumn()
   updated_at: Date
 
