@@ -1,23 +1,9 @@
-import {
-  Entity,
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn
-} from 'typeorm'
+import { Entity, Column } from 'typeorm'
+
+import { CustomEntity } from 'lib/custom_entity'
 
 @Entity()
-export class Post extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class Post extends CustomEntity {
   @Column()
   title: string
-
-  @CreateDateColumn()
-  created_at: Date
-
-  @UpdateDateColumn()
-  updated_at: Date
 }

@@ -1,19 +1,10 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToMany,
-  JoinTable,
-  BaseEntity
-} from 'typeorm'
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm'
 
+import { CustomEntity } from 'lib/custom_entity'
 import { Photo } from './photo'
 
 @Entity()
-export class Album extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class Album extends CustomEntity {
   @Column()
   name: string
 

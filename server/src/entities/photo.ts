@@ -1,8 +1,6 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  BaseEntity,
   OneToOne,
   JoinColumn,
   ManyToOne,
@@ -10,15 +8,13 @@ import {
   JoinTable
 } from 'typeorm'
 
-import { PhotoMetadata } from './photo_metadata'
-import { Author } from './author'
+import { CustomEntity } from 'lib/custom_entity'
 import { Album } from './album'
+import { Author } from './author'
+import { PhotoMetadata } from './photo_metadata'
 
 @Entity()
-export class Photo extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class Photo extends CustomEntity {
   @Column({ length: 100 })
   name: string
 

@@ -1,19 +1,10 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  BaseEntity
-} from 'typeorm'
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 
+import { CustomEntity } from 'lib/custom_entity'
 import { Photo } from './photo'
 
 @Entity()
-export class PhotoMetadata extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class PhotoMetadata extends CustomEntity {
   @Column('int')
   height: number
 

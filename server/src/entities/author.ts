@@ -1,18 +1,10 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  BaseEntity
-} from 'typeorm'
+import { Entity, Column, OneToMany } from 'typeorm'
 
+import { CustomEntity } from 'lib/custom_entity'
 import { Photo } from './photo'
 
 @Entity()
-export class Author extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class Author extends CustomEntity {
   @Column()
   name: string
 
