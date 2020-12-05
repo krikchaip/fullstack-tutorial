@@ -7,7 +7,8 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { Field, ID, ObjectType } from 'type-graphql'
-import { validateOrReject } from 'class-validator'
+import { validate } from 'class-validator'
+import { ValidationError } from 'apollo-server'
 
 @ObjectType({ isAbstract: true })
 export abstract class CustomEntity extends BaseEntity {
@@ -28,6 +29,12 @@ export abstract class CustomEntity extends BaseEntity {
   @BeforeInsert()
   @BeforeUpdate()
   async validate() {
-    await validateOrReject(this)
+    const [error] = await validate(this)
+    if (!error) return
+
+    const [message] = Object.values(error.constraints!)
+    throw new ValidationError(
+      `[${error.target?.constructor.name}#${error.property}] - ${message}`
+    )
   }
 }
