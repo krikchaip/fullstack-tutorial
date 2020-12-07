@@ -7,7 +7,7 @@
   },
   "version": "0.0.1",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --rs --cache-directory .cache server",
+    "dev": "ts-node-dev --exit-child -r tsconfig-paths/register server",
     "start": "echo \"Server Started!\"",
     "typeorm": "ts-node node_modules/.bin/typeorm"
   },

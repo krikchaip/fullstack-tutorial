@@ -1,3 +1,6 @@
+// TypeORM Entity#findOne returns unexpected value
+// ref: https://stackoverflow.com/questions/53455552
+
 import {
   Arg,
   FieldResolver,
@@ -5,7 +8,8 @@ import {
   Mutation,
   ObjectType,
   Query,
-  Resolver
+  Resolver,
+  Root
 } from 'type-graphql'
 
 import { Post } from 'entities'
@@ -19,26 +23,27 @@ class PostMutation {}
 @Resolver(of => PostQuery)
 export class PostQueryResolver {
   @Query(of => PostQuery)
-  post() {
-    return {}
+  post(@Arg('id', of => ID, { nullable: true }) id?: string) {
+    return { id }
   }
 
   @FieldResolver(of => Post, { nullable: true })
-  info(@Arg('id', of => ID) id: string) {
-    return Post.findOne(id)
+  info(@Root('id') id?: string) {
+    return Post.findOne({ where: { id } })
   }
 
   @FieldResolver(of => [Post])
-  list(): Promise<Post[]> {
-    return Post.find()
+  async list(@Root('id') id?: string): Promise<Post[]> {
+    const post = await Post.findOne({ where: { id } })
+    return post ? [post] : Post.find()
   }
 }
 
 @Resolver(of => PostMutation)
 export class PostMutationResolver {
   @Mutation(of => PostMutation)
-  post() {
-    return {}
+  post(@Arg('id', of => ID, { nullable: true }) id?: string) {
+    return { id }
   }
 
   @FieldResolver(of => Post)
@@ -47,15 +52,14 @@ export class PostMutationResolver {
   }
 
   @FieldResolver(of => Post, { nullable: true })
-  async update(@Arg('id', of => ID) id: string, @Arg('title') title: string) {
-    const post = await Post.findOneOrFail(id)
-    Object.assign(post, { title })
-    return post.save()
+  async update(@Arg('title') title: string, @Root('id') id?: string) {
+    const post = await Post.findOne({ where: { id } })
+    return post ? Object.assign(post, { title }).save() : null
   }
 
   @FieldResolver(of => Post, { nullable: true })
-  async delete(@Arg('id', of => ID) id: string) {
-    const post = await Post.findOneOrFail(id)
-    return post.remove()
+  async delete(@Root('id') id?: string) {
+    const post = await Post.findOne({ where: { id } })
+    return post ? post.remove() : null
   }
 }
