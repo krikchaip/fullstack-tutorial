@@ -7,9 +7,9 @@
   },
   "version": "0.0.1",
   "scripts": {
-    "dev": "ts-node-dev --exit-child -r tsconfig-paths/register server",
+    "dev": "ts-node-dev -r tsconfig-paths/register --exit-child server",
     "start": "echo \"Server Started!\"",
-    "typeorm": "ts-node node_modules/.bin/typeorm"
+    "typeorm": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm"
   },
   "dependencies": {
     "apollo-server": "^2.19.0",

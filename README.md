@@ -11,9 +11,10 @@ docker-compose up -d
 
 ## 📝 Todos
 
+- [ ] setup tests with Jest
 - [ ] setup ESLint for Typescript
-- [ ] pre-commit hooks, lint-staged
-- [ ] setup Github Actions
+- [ ] pre-commit hooks, lint-staged (Prettier)
 - [ ] setup e2e test using cypress
-- [ ] deploy to Heroku
+- [ ] setup Github Actions
 - [ ] `dockerfile` (docker image) for both `app` and `server`
+- [ ] deploy to Heroku
