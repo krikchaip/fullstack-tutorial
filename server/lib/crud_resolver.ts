@@ -7,19 +7,31 @@ import {
   FieldResolver,
   ID,
   Mutation,
+  ObjectType,
   Query,
   Resolver,
   Root
 } from 'type-graphql'
 import { BaseEntity } from 'typeorm'
 
-export function QueryResolver<T extends ClassType, E extends typeof BaseEntity>(
-  Type: T,
-  Entity: E
+export function createResolvers<T extends typeof BaseEntity>(
+  Entity: T,
+  options: {
+    EntityCreateType: ClassType<Partial<InstanceType<T>>>
+    EntityUpdateType: ClassType<Partial<InstanceType<T>>>
+  } = {
+    EntityCreateType: Entity as any,
+    EntityUpdateType: Entity as any
+  }
 ) {
-  @Resolver(of => Type, { isAbstract: true })
+  const { EntityCreateType, EntityUpdateType } = options
+
+  @ObjectType(`${Entity.name}Query`)
+  class EntityQuery {}
+
+  @Resolver(of => EntityQuery, { isAbstract: true })
   abstract class QueryResolver {
-    @Query(of => Type)
+    @Query(of => EntityQuery)
     [Entity.name.toLowerCase()](
       @Arg('id', of => ID, { nullable: true }) id?: string
     ) {
@@ -33,21 +45,18 @@ export function QueryResolver<T extends ClassType, E extends typeof BaseEntity>(
 
     @FieldResolver(of => [Entity])
     async list(@Root('id') id?: string) {
+      if (!id) return Entity.find()
       const item = await Entity.findOne({ where: { id } })
-      return item ? [item] : Entity.find()
+      return item ? [item] : []
     }
   }
 
-  return QueryResolver
-}
+  @ObjectType(`${Entity.name}Mutation`)
+  class EntityMutation {}
 
-export function MutationResolver<
-  T extends ClassType,
-  E extends typeof BaseEntity
->(Type: T, Entity: E) {
-  @Resolver(of => Type, { isAbstract: true })
+  @Resolver(of => EntityMutation, { isAbstract: true })
   abstract class MutationResolver {
-    @Mutation(of => Type)
+    @Mutation(of => EntityMutation)
     [Entity.name.toLowerCase()](
       @Arg('id', of => ID, { nullable: true }) id?: string
     ) {
@@ -55,12 +64,15 @@ export function MutationResolver<
     }
 
     @FieldResolver(of => Entity)
-    create(@Arg('data', of => Entity) data: E) {
+    create(@Arg('data', of => EntityCreateType) data: InstanceType<T>) {
       return Entity.create(data).save()
     }
 
     @FieldResolver(of => Entity, { nullable: true })
-    async update(@Arg('data', of => Entity) data: E, @Root('id') id?: string) {
+    async update(
+      @Arg('data', of => EntityUpdateType) data: InstanceType<T>,
+      @Root('id') id?: string
+    ) {
       const item = await Entity.findOne({ where: { id } })
       return item ? Object.assign(item, data).save() : null
     }
@@ -72,5 +84,8 @@ export function MutationResolver<
     }
   }
 
-  return MutationResolver
+  return {
+    QueryResolver,
+    MutationResolver
+  }
 }
