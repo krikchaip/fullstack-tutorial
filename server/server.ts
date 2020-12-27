@@ -1,5 +1,5 @@
 import 'reflect-metadata'
 
-import bootstrap from './src'
+import { bootstrap } from './src'
 
 bootstrap()
