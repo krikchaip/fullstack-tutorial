@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --exit-child server",
     "start": "echo \"Server Started!\"",
+    "test": "jest --colors --runInBand --watch",
     "typeorm": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm",
     "sample": "ts-node -r tsconfig-paths/register node_modules/.bin/fixtures -c ormconfig.ts db/sample"
   },
@@ -22,7 +23,10 @@
     "typeorm": "^0.2.29"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.19",
     "@types/node": "^14.14.10",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
     "ts-node-dev": "^1.0.0",
     "tsconfig-paths": "^3.9.0",
     "typeorm-fixtures-cli": "^1.8.1",
