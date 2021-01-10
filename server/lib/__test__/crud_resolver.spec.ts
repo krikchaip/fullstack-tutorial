@@ -109,9 +109,108 @@ describe('QueryResolver', () => {
   })
 
   describe('entity#list', () => {
-    it.todo('with "id" -> [data] | []')
+    it('with "id" -> [data] | []', async () => {
+      const { server, QueryResolver, Entity } = setup()
 
-    it.todo('without "id" -> [data]')
+      const id = 'TEST_ID'
+      const data = { field: 'FIELD_VALUE' } as any
+
+      const list = jest.spyOn(QueryResolver.prototype, 'list')
+      Entity.findOne.mockImplementationOnce(async () => data)
+
+      let result
+
+      result = await server.query(
+        `#graphql
+          query ($id: ID!) {
+            entity(id: $id) {
+              list {
+                field
+              }
+            }
+          }
+        `,
+        { id }
+      )
+
+      expect(list).toBeCalledWith(id)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "list": Array [
+              Object {
+                "field": "FIELD_VALUE",
+              },
+            ],
+          },
+        }
+      `)
+
+      list.mockClear()
+      Entity.findOne.mockImplementationOnce(async () => undefined)
+
+      result = await server.query(
+        `#graphql
+          query ($id: ID!) {
+            entity(id: $id) {
+              list {
+                field
+              }
+            }
+          }
+        `,
+        { id }
+      )
+
+      expect(list).toBeCalledWith(id)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "list": Array [],
+          },
+        }
+      `)
+    })
+
+    it('without "id" -> [data]', async () => {
+      const { server, QueryResolver, Entity } = setup()
+
+      const data = [
+        { field: 'FIELD_VALUE_1' },
+        { field: 'FIELD_VALUE_2' }
+      ] as any
+
+      const list = jest.spyOn(QueryResolver.prototype, 'list')
+      Entity.find.mockImplementationOnce(async () => data)
+
+      const result = await server.query(
+        `#graphql
+          query {
+            entity {
+              list {
+                field
+              }
+            }
+          }
+        `
+      )
+
+      expect(list).toBeCalledWith(undefined)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "list": Array [
+              Object {
+                "field": "FIELD_VALUE_1",
+              },
+              Object {
+                "field": "FIELD_VALUE_2",
+              },
+            ],
+          },
+        }
+      `)
+    })
   })
 })
 
