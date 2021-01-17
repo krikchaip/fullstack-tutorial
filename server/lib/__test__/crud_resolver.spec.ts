@@ -308,6 +308,7 @@ describe('MutationResolver', () => {
         { data }
       )
 
+      expect(create).toBeCalledWith(expect.objectContaining(data))
       expect(result.data).toMatchInlineSnapshot(`
         Object {
           "entity": Object {
@@ -322,9 +323,72 @@ describe('MutationResolver', () => {
   })
 
   describe('entity#update', () => {
-    it.todo('return updated data')
+    it('return updated data', async () => {
+      const { server, MutationResolver, Entity } = setup()
 
-    it.todo('return null when not found')
+      const id = 'FOUND!'
+      const data = { field: 'AFTER_UPDATE' } as any
+      const item = { field: 'BEFORE_UPDATE', save: jest.fn(() => data) } as any
+
+      const update = jest.spyOn(MutationResolver.prototype, 'update')
+      Entity.findOne.mockResolvedValueOnce(item)
+
+      const result = await server.query(
+        `#graphql
+          mutation ($id: ID!, $data: EntityUpdateType!) {
+            entity(id: $id) {
+              update(data: $data) {
+                field
+              }
+            }
+          }
+        `,
+        { data, id }
+      )
+
+      expect(update).toBeCalledWith(data, id)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "update": Object {
+              "field": "AFTER_UPDATE",
+            },
+          },
+        }
+      `)
+    })
+
+    it('return null when not found', async () => {
+      const { server, MutationResolver, Entity } = setup()
+
+      const id = 'THIS_SHOULD_NOT_BE_FOUND'
+      const data = { field: 'TEST_UPDATE' } as any
+
+      const update = jest.spyOn(MutationResolver.prototype, 'update')
+      Entity.findOne.mockResolvedValueOnce(undefined)
+
+      const result = await server.query(
+        `#graphql
+          mutation ($id: ID!, $data: EntityUpdateType!) {
+            entity(id: $id) {
+              update(data: $data) {
+                field
+              }
+            }
+          }
+        `,
+        { data, id }
+      )
+
+      expect(update).toBeCalledWith(data, id)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "update": null,
+          },
+        }
+      `)
+    })
   })
 
   describe('entity#delete', () => {
