@@ -392,9 +392,70 @@ describe('MutationResolver', () => {
   })
 
   describe('entity#delete', () => {
-    it.todo('return deleted data')
+    it('return deleted data', async () => {
+      const { server, MutationResolver, Entity } = setup()
 
-    it.todo('return null when not found')
+      const id = 'FOUND!'
+      const data = { field: 'DELETED_DATA' } as any
+
+      const remove = jest.spyOn(MutationResolver.prototype, 'delete')
+      Entity.findOne.mockResolvedValueOnce({ ...data, remove: () => data })
+
+      const result = await server.query(
+        `#graphql
+          mutation ($id: ID!) {
+            entity(id: $id) {
+              delete {
+                field
+              }
+            }
+          }
+        `,
+        { id }
+      )
+
+      expect(remove).toBeCalledWith(id)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "delete": Object {
+              "field": "DELETED_DATA",
+            },
+          },
+        }
+      `)
+    })
+
+    it('return null when not found', async () => {
+      const { server, MutationResolver, Entity } = setup()
+
+      const id = 'THIS_SHOULD_NOT_BE_FOUND'
+
+      const remove = jest.spyOn(MutationResolver.prototype, 'delete')
+      Entity.findOne.mockResolvedValueOnce(undefined)
+
+      const result = await server.query(
+        `#graphql
+          mutation ($id: ID!) {
+            entity(id: $id) {
+              delete {
+                field
+              }
+            }
+          }
+        `,
+        { id }
+      )
+
+      expect(remove).toBeCalledWith(id)
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "delete": null,
+          },
+        }
+      `)
+    })
   })
 })
 
