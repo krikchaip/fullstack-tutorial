@@ -18,7 +18,7 @@ beforeEach(() => jest.restoreAllMocks())
 
 describe('QueryResolver', () => {
   describe('entity#info', () => {
-    it('with "id" -> data | null', async () => {
+    it('entity(id: "...").info -> data | null', async () => {
       const { server, QueryResolver, Entity } = setup()
 
       const id = 'TEST_ID'
@@ -79,7 +79,7 @@ describe('QueryResolver', () => {
       `)
     })
 
-    it('without "id" -> null', async () => {
+    it('entity.info -> null', async () => {
       const { server, QueryResolver, Entity } = setup()
 
       const info = jest.spyOn(QueryResolver.prototype, 'info')
@@ -109,7 +109,7 @@ describe('QueryResolver', () => {
   })
 
   describe('entity#list', () => {
-    it('with "id" -> [data] | []', async () => {
+    it('entity(id: "...").list -> [data] | []', async () => {
       const { server, QueryResolver, Entity } = setup()
 
       const id = 'TEST_ID'
@@ -172,7 +172,7 @@ describe('QueryResolver', () => {
       `)
     })
 
-    it('without "id" -> [data]', async () => {
+    it('entity.list -> [data]', async () => {
       const { server, QueryResolver, Entity } = setup()
 
       const data = [
@@ -215,15 +215,65 @@ describe('QueryResolver', () => {
 })
 
 describe('MutationResolver', () => {
-  it.todo('...')
+  describe('entity#create', () => {
+    it('use input type from Entity definition', async () => {
+      const { server, MutationResolver } = setup()
+
+      const data = { field: 'TEST_CREATE' } as any
+
+      const create = jest.spyOn(MutationResolver.prototype, 'create')
+      create.mockImplementationOnce(() => data)
+
+      const result = await server.query(
+        `#graphql
+          mutation ($data: EntityCreate!) {
+            entity {
+              create(data: $data) {
+                field
+              }
+            }
+          }
+        `,
+        { data }
+      )
+
+      expect(create).toBeCalledWith(expect.objectContaining(data))
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "create": Object {
+              "field": "TEST_CREATE",
+            },
+          },
+        }
+      `)
+    })
+
+    it.todo('provide EntityCreateType')
+  })
+
+  describe('entity#update', () => {
+    it.todo('default')
+
+    it.todo('provide EntityUpdateType')
+  })
+
+  describe('entity#delete', () => {
+    it.todo('return deleted data')
+
+    it.todo('return null when not found')
+  })
 })
 
 // TypeGraphQL decorators somehow produce side-effects.
 // Calling buildSchema with the same resolvers more than once will break the test.
 const setup = once(() => {
+  // You can only annotate each TypeGraphQL's type decorator
+  // (ObjectType, InputType, ...) once for each ES6 class.
+  // Doing more than that would overide all the previous one.
   @ObjectType('Entity')
   @InputType('EntityCreate')
-  @InputType('EntityUpdate')
+  // @InputType('EntityUpdate') ❌ this would override "EntityCreate"
   class Entity extends BaseEntity {
     @Field()
     field: string
@@ -238,7 +288,8 @@ const setup = once(() => {
   class EntityMutationResolver extends MutationResolver {}
 
   const schema = buildSchemaSync({
-    resolvers: [EntityQueryResolver, EntityMutationResolver]
+    resolvers: [EntityQueryResolver, EntityMutationResolver],
+    validate: false // https://github.com/MichalLytek/type-graphql/issues/150
   })
 
   const server = mockServer(schema, {}, true)
