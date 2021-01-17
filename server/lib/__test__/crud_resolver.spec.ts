@@ -1,5 +1,6 @@
 import {
   buildSchemaSync,
+  getMetadataStorage,
   Field,
   InputType,
   ObjectType,
@@ -7,14 +8,17 @@ import {
 } from 'type-graphql'
 import { BaseEntity } from 'typeorm'
 import { mockServer } from 'apollo-server'
-import { once } from 'ramda'
 import { mocked } from 'ts-jest/utils'
 
 import { createResolvers } from 'lib/crud_resolver'
 
 jest.mock('typeorm/repository/BaseEntity')
 
-beforeEach(() => jest.restoreAllMocks())
+beforeEach(() => {
+  // Clearing TypeGraphQL's decorator metadata between tests.
+  // Without this, we can't call "setup" more than once.
+  getMetadataStorage().clear()
+})
 
 describe('QueryResolver', () => {
   describe('entity#info', () => {
@@ -216,20 +220,40 @@ describe('QueryResolver', () => {
 
 describe('MutationResolver', () => {
   describe('entity#create', () => {
-    it('use input type from Entity definition', async () => {
-      const { server, MutationResolver } = setup()
+    let $Entity: typeof BaseEntity
 
-      const data = { field: 'TEST_CREATE' } as any
+    beforeEach(() => {
+      @ObjectType('Entity')
+      @InputType('EntityCreateType')
+      class Entity extends BaseEntity {
+        @Field()
+        field1: string
+
+        @Field()
+        field2: string
+      }
+
+      $Entity = Entity
+    })
+
+    it('use input type from Entity definition', async () => {
+      const { server, MutationResolver } = setup({ Entity: $Entity })
+
+      const data = {
+        field1: 'TEST_CREATE_FIELD_1',
+        field2: 'TEST_CREATE_FIELD_2'
+      } as any
 
       const create = jest.spyOn(MutationResolver.prototype, 'create')
-      create.mockImplementationOnce(() => data)
+      create.mockReturnValueOnce(data)
 
       const result = await server.query(
         `#graphql
-          mutation ($data: EntityCreate!) {
+          mutation ($data: EntityCreateType!) {
             entity {
               create(data: $data) {
-                field
+                field1
+                field2
               }
             }
           }
@@ -242,20 +266,65 @@ describe('MutationResolver', () => {
         Object {
           "entity": Object {
             "create": Object {
-              "field": "TEST_CREATE",
+              "field1": "TEST_CREATE_FIELD_1",
+              "field2": "TEST_CREATE_FIELD_2",
             },
           },
         }
       `)
     })
 
-    it.todo('provide EntityCreateType')
+    it('providing EntityCreateType', async () => {
+      @InputType()
+      class EntityCreateType {
+        @Field()
+        field1: string
+
+        @Field({ nullable: true })
+        field2?: string
+      }
+
+      const { server, MutationResolver } = setup({
+        Entity: $Entity,
+        EntityCreateType: EntityCreateType as any
+      })
+
+      const data = { field1: 'TEST_PROVIDING_CREATE_TYPE' } as any
+
+      const create = jest.spyOn(MutationResolver.prototype, 'create')
+      create.mockReturnValueOnce(data)
+
+      const result = await server.query(
+        `#graphql
+          mutation ($data: EntityCreateType!) {
+            entity {
+              create(data: $data) {
+                field1
+                field2
+              }
+            }
+          }
+        `,
+        { data }
+      )
+
+      expect(result.data).toMatchInlineSnapshot(`
+        Object {
+          "entity": Object {
+            "create": Object {
+              "field1": "TEST_PROVIDING_CREATE_TYPE",
+              "field2": "Hello World",
+            },
+          },
+        }
+      `)
+    })
   })
 
   describe('entity#update', () => {
-    it.todo('default')
+    it.todo('return updated data')
 
-    it.todo('provide EntityUpdateType')
+    it.todo('return null when not found')
   })
 
   describe('entity#delete', () => {
@@ -265,21 +334,29 @@ describe('MutationResolver', () => {
   })
 })
 
-// TypeGraphQL decorators somehow produce side-effects.
-// Calling buildSchema with the same resolvers more than once will break the test.
-const setup = once(() => {
+function setup(options?: Partial<Parameters<typeof createResolvers>[0]>) {
   // You can only annotate each TypeGraphQL's type decorator
   // (ObjectType, InputType, ...) once for each ES6 class.
   // Doing more than that would overide all the previous one.
   @ObjectType('Entity')
-  @InputType('EntityCreate')
+  @InputType('EntityCreateType')
   // @InputType('EntityUpdate') ❌ this would override "EntityCreate"
   class Entity extends BaseEntity {
     @Field()
     field: string
   }
 
-  const { QueryResolver, MutationResolver } = createResolvers(Entity)
+  @InputType()
+  class EntityUpdateType implements Partial<Entity> {
+    @Field({ nullable: true })
+    field?: string
+  }
+
+  const { QueryResolver, MutationResolver } = createResolvers({
+    Entity,
+    EntityUpdateType,
+    ...options
+  })
 
   @Resolver()
   class EntityQueryResolver extends QueryResolver {}
@@ -300,4 +377,4 @@ const setup = once(() => {
     MutationResolver: EntityMutationResolver,
     server
   }
-})
+}

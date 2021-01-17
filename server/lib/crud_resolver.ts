@@ -14,17 +14,12 @@ import {
 } from 'type-graphql'
 import { BaseEntity } from 'typeorm'
 
-export function createResolvers<T extends typeof BaseEntity>(
-  Entity: T,
-  options: {
-    EntityCreateType: ClassType<Partial<InstanceType<T>>>
-    EntityUpdateType: ClassType<Partial<InstanceType<T>>>
-  } = {
-    EntityCreateType: Entity as any,
-    EntityUpdateType: Entity as any
-  }
-) {
-  const { EntityCreateType, EntityUpdateType } = options
+export function createResolvers<T extends typeof BaseEntity>(options: {
+  Entity: T
+  EntityCreateType?: ClassType<Partial<InstanceType<T>>>
+  EntityUpdateType: ClassType<Partial<InstanceType<T>>>
+}) {
+  const { Entity, EntityCreateType = Entity, EntityUpdateType } = options
 
   @ObjectType(`${Entity.name}Query`)
   class EntityQuery {}
