@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server'
 import { createConnection } from 'typeorm'
 
 import { schema } from 'resolvers'
-import { current } from '../ormconfig'
+import { current } from 'ormconfig'
 
 export async function bootstrap() {
   const db = await createConnection(current)

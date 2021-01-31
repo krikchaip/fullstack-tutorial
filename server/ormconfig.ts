@@ -6,7 +6,7 @@ class NamingStrategy extends DefaultNamingStrategy {
   joinTableName = (table1: string, table2: string) => table1 + ' & ' + table2
 }
 
-type ConfigMode = 'default'
+type ConfigMode = 'default' | 'test'
 export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
   default: {
     name: 'default',
@@ -24,6 +24,21 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
     migrations: ['db/migration/*.ts'],
     migrationsTableName: '__migration__',
     cli: { migrationsDir: 'db/migration' },
+    namingStrategy: new NamingStrategy()
+  },
+  test: {
+    name: 'test',
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
+    database: 'postgres',
+    schema: 'test',
+    dropSchema: true,
+    synchronize: true,
+    logging: false,
+    entities: ['src/entities/!(index).ts'],
     namingStrategy: new NamingStrategy()
   }
 }
