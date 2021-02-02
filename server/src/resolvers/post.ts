@@ -1,13 +1,4 @@
-import {
-  Arg,
-  FieldResolver,
-  ID,
-  Mutation,
-  ObjectType,
-  Query,
-  Resolver,
-  Root
-} from 'type-graphql'
+import { Resolver } from 'type-graphql'
 
 import { Post, PostCreate, PostUpdate } from 'entities'
 import { createResolvers } from 'lib/crud_resolver'
