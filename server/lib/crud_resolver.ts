@@ -58,7 +58,7 @@ export function createResolvers<T extends typeof BaseEntity>(options: {
       return { id }
     }
 
-    @FieldResolver(of => Entity)
+    @FieldResolver(of => Entity, { nullable: true })
     create(@Arg('data', of => EntityCreateType) data: InstanceType<T>) {
       return Entity.create(data).save()
     }
