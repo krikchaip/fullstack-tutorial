@@ -1,4 +1,4 @@
-import { Column, Entity, BeforeInsert, BeforeUpdate } from 'typeorm'
+import { Column, Entity, BeforeInsert, BeforeUpdate, Index } from 'typeorm'
 import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsNotEmpty, MinLength } from 'class-validator'
 import { hashSync } from 'bcrypt'
@@ -8,6 +8,7 @@ import { NotExistsIn } from 'lib/validators'
 
 @ObjectType()
 @Entity()
+@Index(['username'])
 export class User extends CustomEntity {
   @Field()
   @Column({ unique: true })
