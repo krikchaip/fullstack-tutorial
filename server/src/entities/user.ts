@@ -28,7 +28,7 @@ export class User extends CustomEntity {
 }
 
 @InputType()
-export class UserCreate implements Partial<User> {
+export class UserCreateInput implements Partial<User> {
   @Field()
   username: string
 
@@ -37,7 +37,7 @@ export class UserCreate implements Partial<User> {
 }
 
 @InputType()
-export class UserUpdate implements Partial<User> {
+export class UserUpdateInput implements Partial<User> {
   @Field({ nullable: true })
   password?: string
 }

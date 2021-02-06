@@ -14,13 +14,13 @@ export class Post extends CustomEntity {
 }
 
 @InputType()
-export class PostCreate implements Partial<Post> {
+export class PostCreateInput implements Partial<Post> {
   @Field()
   title: string
 }
 
 @InputType()
-export class PostUpdate implements Partial<Post> {
+export class PostUpdateInput implements Partial<Post> {
   @Field({ nullable: true })
   title?: string
 }

@@ -1,12 +1,12 @@
 import { Resolver } from 'type-graphql'
 
-import { Post, PostCreate, PostUpdate } from 'entities'
+import { Post, PostCreateInput, PostUpdateInput } from 'entities'
 import { createResolvers } from 'lib/crud_resolver'
 
 const { QueryResolver, MutationResolver } = createResolvers({
   Entity: Post,
-  EntityCreateType: PostCreate,
-  EntityUpdateType: PostUpdate
+  EntityCreateType: PostCreateInput,
+  EntityUpdateType: PostUpdateInput
 })
 
 @Resolver()
