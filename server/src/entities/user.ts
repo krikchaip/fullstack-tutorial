@@ -1,7 +1,7 @@
 import { Column, Entity, BeforeInsert, BeforeUpdate, Index } from 'typeorm'
 import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsNotEmpty, MinLength } from 'class-validator'
-import { hashSync } from 'bcrypt'
+import { hashSync, compareSync } from 'bcrypt'
 
 import { CustomEntity } from 'lib/custom_entity'
 import { NotExistsIn } from 'lib/validators'
@@ -25,6 +25,10 @@ export class User extends CustomEntity {
   hashPassword() {
     this.password = hashSync(this.password, 10)
   }
+
+  validatePassword(password: string) {
+    return compareSync(password, this.password)
+  }
 }
 
 @InputType()
@@ -40,4 +44,22 @@ export class UserCreateInput implements Partial<User> {
 export class UserUpdateInput implements Partial<User> {
   @Field({ nullable: true })
   password?: string
+}
+
+@InputType()
+export class UserAuthenticateInput implements Partial<User> {
+  @Field()
+  username: string
+
+  @Field()
+  password: string
+}
+
+@ObjectType()
+export class UserAuthenticateResult {
+  @Field()
+  token: string
+
+  @Field(of => User)
+  data: User
 }

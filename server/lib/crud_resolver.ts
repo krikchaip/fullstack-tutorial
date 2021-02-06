@@ -81,6 +81,8 @@ export function createResolvers<T extends typeof BaseEntity>(options: {
 
   return {
     QueryResolver,
-    MutationResolver
+    MutationResolver,
+    EntityQuery,
+    EntityMutation
   }
 }
