@@ -1,5 +1,5 @@
 import { Resolver, Arg, FieldResolver } from 'type-graphql'
-import { sign } from 'jsonwebtoken'
+import { Inject, Service } from 'typedi'
 
 import {
   User,
@@ -8,6 +8,7 @@ import {
   UserCreateInput,
   UserUpdateInput
 } from 'entities'
+import { Token } from 'services'
 import { createResolvers } from 'lib/crud_resolver'
 
 const { QueryResolver, MutationResolver, EntityMutation } = createResolvers({
@@ -19,8 +20,12 @@ const { QueryResolver, MutationResolver, EntityMutation } = createResolvers({
 @Resolver()
 export class UserQueryResolver extends QueryResolver {}
 
+@Service()
 @Resolver(of => EntityMutation)
 export class UserMutationResolver extends MutationResolver {
+  @Inject()
+  $token: Token
+
   @FieldResolver(of => UserAuthenticateResult, { nullable: true })
   async authenticate(
     @Arg('data', of => UserAuthenticateInput) data: UserAuthenticateInput
@@ -30,7 +35,7 @@ export class UserMutationResolver extends MutationResolver {
     if (!user || !user.validatePassword(password)) return null
 
     const payload = {}
-    const token = sign(payload, 'SUPER_SECRET', {
+    const token = this.$token.sign(payload, {
       expiresIn: '7d',
       subject: user.id
     })
