@@ -1,9 +1,12 @@
 import { Service } from 'typedi'
-import { sign, SignOptions } from 'jsonwebtoken'
+import { sign, SignOptions, JsonWebTokenError } from 'jsonwebtoken'
 
 @Service()
 export class Token {
   sign(payload: object, options?: SignOptions) {
-    return sign(payload, 'SUPER_SECRET', options)
+    if (!process.env.SECRET)
+      throw new JsonWebTokenError('secretOrPrivateKey not found')
+
+    return sign(payload, process.env.SECRET, options)
   }
 }
