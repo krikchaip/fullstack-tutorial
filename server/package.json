@@ -7,7 +7,8 @@
   },
   "version": "0.0.1",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --exit-child server",
+    "predev": "rm -rf .cache",
+    "dev": "ts-node-dev -r tsconfig-paths/register --exit-child --cache-directory .cache server",
     "start": "echo \"Server Started!\"",
     "test": "jest --colors --runInBand --watch",
     "typeorm": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm",
