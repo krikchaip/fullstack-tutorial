@@ -1,4 +1,5 @@
 import { ConnectionOptions, DefaultNamingStrategy } from 'typeorm'
+import { omit } from 'ramda'
 
 class NamingStrategy extends DefaultNamingStrategy {
   joinColumnName = (prop: string) => prop + '_id'
@@ -43,7 +44,11 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
   }
 }
 
-export const current =
+// "createConnection" parameter can't have the "name" property
+// when passing as an object.
+export const current = omit(
+  ['name'],
   ormconfig[(process.env.NODE_ENV ?? 'default') as ConfigMode]
+) as ConnectionOptions
 
 export default Object.values(ormconfig) as ConnectionOptions[]

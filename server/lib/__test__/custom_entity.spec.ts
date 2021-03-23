@@ -1,7 +1,7 @@
 import { Entity, Column, createConnection } from 'typeorm'
 import { Contains } from 'class-validator'
 
-import { current } from '../../ormconfig'
+import { current } from 'ormconfig'
 
 import { CustomEntity } from 'lib/custom_entity'
 
@@ -57,11 +57,6 @@ it('validation', async () => {
 })
 
 async function setup(entity: typeof CustomEntity) {
-  const db = await createConnection({
-    ...current,
-    name: undefined, // ❗️ name -> "default"
-    entities: [entity]
-  })
-
+  const db = await createConnection({ ...current, entities: [entity] })
   return { db }
 }
