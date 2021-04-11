@@ -31,6 +31,7 @@ export class UserMutationResolver extends MutationResolver {
     @Arg('data', of => UserAuthenticateInput) data: UserAuthenticateInput
   ): Promise<UserAuthenticateResult | null> {
     const { username, password } = data
+
     const user = await User.findOne({ where: { username } })
     if (!user || !user.validatePassword(password)) return null
 

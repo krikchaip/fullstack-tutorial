@@ -17,8 +17,10 @@
       "lib/*": ["lib/*"],
       "test/*": ["test/*"],
       "entities": ["src/entities"],
+      "entities/*": ["src/entities/*"],
       "resolvers": ["src/resolvers"],
       "services": ["src/services"],
+      "services/*": ["src/services/*"],
       "ormconfig": ["ormconfig.ts"]
     }
   },
