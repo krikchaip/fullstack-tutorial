@@ -7,6 +7,8 @@ import { UserCreateInput } from 'entities'
 import { UserQueryResolver, UserMutationResolver } from '../user'
 import { current } from 'ormconfig'
 
+jest.mock('services/token')
+
 let db: Connection, server: IMockServer
 
 const input: UserCreateInput = { username: 'winner', password: 'zaza555' }
@@ -52,7 +54,6 @@ afterAll(async () => {
   return db.close()
 })
 
-// TODO: integration tests
 describe('Mutation', () => {
   describe('authenticate', () => {
     it('"null" when no user found', async () => {
