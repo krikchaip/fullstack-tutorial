@@ -17,7 +17,7 @@ const query = `#graphql
     user {
       authenticate(data: { username: $username, password: $password }) {
         token
-        data {
+        user {
           id
         }
       }
@@ -92,7 +92,7 @@ describe('Mutation', () => {
       expect(result.data!.user).toEqual({
         authenticate: {
           token: expect.any(String),
-          data: { id: expect.any(String) }
+          user: { id: expect.any(String) }
         }
       })
     })

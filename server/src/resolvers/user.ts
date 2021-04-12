@@ -3,8 +3,8 @@ import { Inject, Service } from 'typedi'
 
 import {
   User,
-  UserAuthenticateInput,
-  UserAuthenticateResult,
+  AuthenticateInput,
+  Authenticate,
   UserCreateInput,
   UserUpdateInput
 } from 'entities'
@@ -26,10 +26,10 @@ export class UserMutationResolver extends MutationResolver {
   @Inject()
   $token: Token
 
-  @FieldResolver(of => UserAuthenticateResult, { nullable: true })
+  @FieldResolver(of => Authenticate, { nullable: true })
   async authenticate(
-    @Arg('data', of => UserAuthenticateInput) data: UserAuthenticateInput
-  ): Promise<UserAuthenticateResult | null> {
+    @Arg('data', of => AuthenticateInput) data: AuthenticateInput
+  ): Promise<Authenticate | null> {
     const { username, password } = data
 
     const user = await User.findOne({ where: { username } })
@@ -41,6 +41,6 @@ export class UserMutationResolver extends MutationResolver {
       subject: user.id
     })
 
-    return { token, data: user }
+    return { token, user }
   }
 }

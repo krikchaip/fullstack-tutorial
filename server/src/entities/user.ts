@@ -47,7 +47,7 @@ export class UserUpdateInput implements Partial<User> {
 }
 
 @InputType()
-export class UserAuthenticateInput implements Partial<User> {
+export class AuthenticateInput implements Partial<User> {
   @Field()
   username: string
 
@@ -56,10 +56,10 @@ export class UserAuthenticateInput implements Partial<User> {
 }
 
 @ObjectType()
-export class UserAuthenticateResult {
+export class Authenticate {
   @Field()
   token: string
 
   @Field(of => User)
-  data: User
+  user: User
 }
