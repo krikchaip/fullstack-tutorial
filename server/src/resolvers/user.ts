@@ -17,6 +17,7 @@ const { QueryResolver, MutationResolver, EntityMutation } = createResolvers({
   EntityUpdateType: UserUpdateInput
 })
 
+@Service()
 @Resolver()
 export class UserQueryResolver extends QueryResolver {}
 
