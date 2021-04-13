@@ -11,7 +11,17 @@
     "e2e",
     "server"
   ],
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --ignore-path .gitignore --write"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,md,json}": "yarn format"
+  },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  }
 }
