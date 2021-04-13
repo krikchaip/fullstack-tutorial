@@ -7,7 +7,7 @@ import { current } from 'ormconfig'
 export async function bootstrap() {
   const db = await createConnection(current)
   const server = new ApolloServer({ schema })
-  const info = await server.listen({ port: 3000 })
+  const info = await server.listen({ port: process.env.SERVER_PORT || 3000 })
 
   console.log(`🚀 Server ready at ${info.url}`)
 
