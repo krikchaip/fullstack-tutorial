@@ -11,6 +11,8 @@ const config: Config.InitialOptions = {
     prefix: '<rootDir>/'
   }),
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
+  testPathIgnorePatterns: ['<rootDir>/dist', '<rootDir>/node_modules'],
+  modulePathIgnorePatterns: ['<rootDir>/dist'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'

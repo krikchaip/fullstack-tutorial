@@ -1,6 +1,8 @@
 import { ConnectionOptions, DefaultNamingStrategy } from 'typeorm'
 import { omit } from 'ramda'
 
+import { EXT, CURRENT } from 'env'
+
 class NamingStrategy extends DefaultNamingStrategy {
   joinColumnName = (prop: string) => prop + '_id'
   joinTableColumnName = (table: string) => table + '_id'
@@ -21,8 +23,8 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
     synchronize: false,
     migrationsRun: true,
     logging: false,
-    entities: ['src/entities/!(index).ts'],
-    migrations: ['db/migration/*.ts'],
+    entities: [`src/entities/!(index).${EXT}`],
+    migrations: [`db/migration/*.${EXT}`],
     migrationsTableName: '__migration__',
     cli: { migrationsDir: 'db/migration' },
     namingStrategy: new NamingStrategy()
@@ -48,7 +50,7 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
 // when passing as an object.
 export const current = omit(
   ['name'],
-  ormconfig[(process.env.NODE_ENV ?? 'default') as ConfigMode]
+  ormconfig[CURRENT as ConfigMode]
 ) as ConnectionOptions
 
 export default Object.values(ormconfig) as ConnectionOptions[]

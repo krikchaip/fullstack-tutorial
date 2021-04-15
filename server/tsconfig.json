@@ -21,7 +21,8 @@
       "resolvers": ["src/resolvers"],
       "services": ["src/services"],
       "services/*": ["src/services/*"],
-      "ormconfig": ["ormconfig.ts"]
+      "env": ["env"],
+      "ormconfig": ["ormconfig"]
     }
   },
   "ts-node": {
