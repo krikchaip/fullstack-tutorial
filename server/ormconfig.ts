@@ -1,7 +1,7 @@
 import { ConnectionOptions, DefaultNamingStrategy } from 'typeorm'
 import { omit } from 'ramda'
 
-import { EXT, CURRENT } from 'env'
+import { CURRENT } from 'env'
 
 class NamingStrategy extends DefaultNamingStrategy {
   joinColumnName = (prop: string) => prop + '_id'
@@ -21,10 +21,9 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
     database: 'postgres',
     schema: 'public',
     synchronize: false,
-    migrationsRun: true,
+    migrationsRun: false,
     logging: false,
-    entities: [`src/entities/!(index).${EXT}`],
-    migrations: [`db/migration/*.${EXT}`],
+    entities: ['src/entities/!(index).{js,ts}'],
     migrationsTableName: '__migration__',
     cli: { migrationsDir: 'db/migration' },
     namingStrategy: new NamingStrategy()
