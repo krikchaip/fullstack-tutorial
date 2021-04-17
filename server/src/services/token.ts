@@ -5,7 +5,7 @@ import { SECRET } from 'env'
 
 @Service()
 export class Token {
-  sign(payload: object, options?: SignOptions) {
+  sign(payload: Record<string, unknown>, options?: SignOptions) {
     if (!SECRET) throw new JsonWebTokenError('secretOrPrivateKey not found')
     return sign(payload, SECRET, options)
   }

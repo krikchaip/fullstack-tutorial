@@ -4,8 +4,7 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
-  ManyToMany,
-  JoinTable
+  ManyToMany
 } from 'typeorm'
 
 import { CustomEntity } from 'lib/custom_entity'

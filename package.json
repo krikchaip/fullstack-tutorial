@@ -13,15 +13,22 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "format": "prettier --ignore-path .gitignore --write"
+    "format": "prettier --ignore-path .gitignore --write",
+    "lint": "eslint --ignore-path .gitignore --ext .ts,.tsx"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,md,json}": "yarn format"
+    "**/*.{ts,tsx,md,json}": "yarn format",
+    "**/*.{ts,tsx}": "yarn lint"
   },
   "dependencies": {},
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint": "^7.24.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2"
   }
 }
