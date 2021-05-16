@@ -7,6 +7,8 @@
   },
   "version": "0.0.1",
   "scripts": {
+    "test": "echo \"E2E CI Testing!\"",
+    "build": "echo \"no-op\"",
     "start": "echo \"E2E Testing Started!\""
   },
   "dependencies": {},

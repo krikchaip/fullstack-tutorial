@@ -1,0 +1,45 @@
+name: CI
+on:
+  pull_request:
+    branches: [master]
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Using NodeJS v14.9
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.9
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build all workspaces
+        run: yarn workspaces run build
+  Test:
+    runs-on: ubuntu-latest
+    needs: Build
+    services:
+      db:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        volumes:
+          - db:/var/lib/postgresql/data
+          - /home/runner/work/fullstack-tutorial/fullstack-tutorial/server/script/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
+        # options: -v $GITHUB_WORKSPACE/server/script/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
+        ports:
+          - 5432:5432
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Using NodeJS v14.9
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.9
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run all workspaces tests
+        run: yarn workspaces run test
