@@ -1,7 +1,7 @@
 import { ConnectionOptions, DefaultNamingStrategy } from 'typeorm'
 import { omit } from 'ramda'
 
-import { CURRENT } from 'env'
+import { CURRENT, IS_CI } from 'env'
 
 class NamingStrategy extends DefaultNamingStrategy {
   joinColumnName = (prop: string) => prop + '_id'
@@ -36,7 +36,7 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
     username: 'postgres',
     password: 'postgres',
     database: 'postgres',
-    schema: 'test',
+    schema: IS_CI ? 'public' : 'test',
     dropSchema: true,
     synchronize: true,
     logging: false,

@@ -5,6 +5,7 @@ export const DEVELOPMENT =
 export const PRODUCTION = process.env.NODE_ENV === 'production'
 export const SERVER_PORT = process.env.SERVER_PORT || 3000
 export const SECRET = process.env.SECRET
+export const IS_CI = require('is-ci') as boolean
 
 /* Derived configs */
 export const CURRENT =

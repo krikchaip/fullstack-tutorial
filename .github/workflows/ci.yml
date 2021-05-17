@@ -28,8 +28,6 @@ jobs:
           POSTGRES_DB: postgres
         volumes:
           - db:/var/lib/postgresql/data
-          - /home/runner/work/fullstack-tutorial/fullstack-tutorial/server/script/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
-        # options: -v $GITHUB_WORKSPACE/server/script/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
         ports:
           - 5432:5432
     steps:
