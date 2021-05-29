@@ -3,31 +3,8 @@ on:
   pull_request:
     branches: [master]
 jobs:
-  Build:
+  CI:
     runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Using NodeJS v14.9
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.9
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=path::$(yarn cache dir)"
-      - name: Restoring yarn cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.path }}
-          key: yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: yarn-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Build all workspaces
-        run: yarn workspaces run build
-  Test:
-    runs-on: ubuntu-latest
-    needs: Build
     services:
       db:
         image: postgres:13-alpine
@@ -46,6 +23,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.9
+
+      # ref: https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=path::$(yarn cache dir)"
@@ -57,5 +36,8 @@ jobs:
           restore-keys: yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Build all workspaces
+        run: yarn workspaces run build
       - name: Run all workspaces tests
         run: yarn workspaces run test
