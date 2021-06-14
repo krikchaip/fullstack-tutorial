@@ -6,5 +6,8 @@ inspired from [Ben Awad Fullstack Tutorial](https://www.youtube.com/watch?v=I6yp
 
 ```sh
 # start services in the background
-docker-compose up -d
+docker compose up -d
+
+# with custom .env file
+docker compose --env-file path/to/.env up -d
 ```

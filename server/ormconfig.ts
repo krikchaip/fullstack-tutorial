@@ -1,7 +1,7 @@
 import { ConnectionOptions, DefaultNamingStrategy } from 'typeorm'
 import { omit } from 'ramda'
 
-import { CURRENT, IS_CI } from 'env'
+import { CURRENT, IS_CI, DB_PORT } from 'env'
 
 class NamingStrategy extends DefaultNamingStrategy {
   joinColumnName = (prop: string) => prop + '_id'
@@ -15,7 +15,7 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
     name: 'default',
     type: 'postgres',
     host: 'localhost',
-    port: 5432,
+    port: DB_PORT,
     username: 'postgres',
     password: 'postgres',
     database: 'postgres',
@@ -32,7 +32,7 @@ export const ormconfig: Record<ConfigMode, ConnectionOptions> = {
     name: 'test',
     type: 'postgres',
     host: 'localhost',
-    port: 5432,
+    port: DB_PORT,
     username: 'postgres',
     password: 'postgres',
     database: 'postgres',
