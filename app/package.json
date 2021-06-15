@@ -3,14 +3,24 @@
   "description": "Server-sided frontend application using NextJS",
   "license": "MIT",
   "engines": {
-    "node": "^14.9.0"
+    "node": "^14.17.0"
   },
   "version": "0.0.1",
   "scripts": {
+    "dev": "next dev",
     "test": "echo \"Application Under Testing!\"",
-    "build": "echo \"Application Was Built!\"",
-    "start": "echo \"Application Started!\""
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "next": "^11.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.11",
+    "eslint-config-next": "^11.0.0",
+    "typescript": "^4.3.2"
+  }
 }

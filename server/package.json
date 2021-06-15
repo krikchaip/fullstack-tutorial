@@ -3,7 +3,7 @@
   "description": "Apollo GraphQL server",
   "license": "MIT",
   "engines": {
-    "node": "^14.9.0"
+    "node": "^14.17.0"
   },
   "version": "0.0.1",
   "scripts": {

@@ -1,8 +1,11 @@
 {
   "files.exclude": {
     "**/.cache": true,
+    "**/.next": true,
     "**/dist": true
   },
+
+  /* configs for commit message editor extention */
   "commit-message-editor.view.defaultView": "form",
   "commit-message-editor.view.tabSize": 2,
   "commit-message-editor.view.useMonospaceEditor": true,
@@ -103,5 +106,11 @@
       "prefix": "\n",
       "multiline": true
     }
-  ]
+  ],
+
+  /* configs for tailwindcss */
+  "css.validate": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }
