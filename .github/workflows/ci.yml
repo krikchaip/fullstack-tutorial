@@ -19,10 +19,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Using NodeJS v14.9
+      - name: Using NodeJS v14.17
         uses: actions/setup-node@v2
         with:
-          node-version: 14.9
+          node-version: 14.17
 
       # ref: https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Get yarn cache directory path
