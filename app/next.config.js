@@ -1,5 +1,3 @@
-// @ts-check
-
 const tsconfig = require('./tsconfig.json')
 
 /**

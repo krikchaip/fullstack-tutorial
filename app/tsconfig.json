@@ -15,10 +15,8 @@
     "target": "es5",
     "baseUrl": ".",
     "paths": {
-      "components/*": ["components/*"],
       "lib/*": ["lib/*"],
-      "pages/*": ["pages/*"],
-      "styles/*": ["styles/*"]
+      "pages/*": ["pages/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
