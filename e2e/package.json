@@ -3,10 +3,12 @@
   "description": "E2E Testing for the project using Cypress",
   "license": "MIT",
   "engines": {
-    "node": "^14.9.0"
+    "node": "^14.17.0"
   },
   "version": "0.0.1",
   "scripts": {
+    "test": "echo \"E2E CI Testing!\"",
+    "build": "echo \"no-op\"",
     "start": "echo \"E2E Testing Started!\""
   },
   "dependencies": {},

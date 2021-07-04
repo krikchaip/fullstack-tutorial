@@ -1,6 +1,13 @@
 {
   "files.exclude": {
     "**/.cache": true,
+    "**/.next": true,
     "**/dist": true
+  },
+
+  /* for TailwindCSS extension */
+  "css.validate": false,
+  "editor.quickSuggestions": {
+    "strings": true
   }
 }

@@ -6,19 +6,19 @@ import { compilerOptions } from './tsconfig.json'
 
 const config: Config.InitialOptions = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/'
   }),
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
-  testPathIgnorePatterns: ['<rootDir>/dist'],
-  modulePathIgnorePatterns: ['<rootDir>/dist'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
   ],
   globals: {
-    'ts-jest': {} as TsJestGlobalOptions
+    'ts-jest': {
+      tsconfig: { jsx: 'react' }
+    } as TsJestGlobalOptions
   }
 }
 
