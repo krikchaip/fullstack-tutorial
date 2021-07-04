@@ -40,4 +40,4 @@ jobs:
       - name: Build all workspaces
         run: yarn workspaces run build
       - name: Run all workspaces tests
-        run: yarn workspaces run test
+        run: yarn workspaces run test --passWithNoTests
