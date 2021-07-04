@@ -9,8 +9,8 @@
   "scripts": {
     "predev": "rm -rf .cache",
     "dev": "ts-node-dev -r tsconfig-paths/register --exit-child --cache-directory .cache server",
-    "test": "jest --runInBand --ci --colors",
-    "test:watch": "jest --runInBand --watch",
+    "test": "jest --runInBand --colors --ci",
+    "test:watch": "jest --runInBand --colors --watch",
     "prebuild": "rm -rf dist",
     "build": "tsc --outDir dist && tscpaths -p tsconfig.json -s . -o dist",
     "postbuild": "! is-ci && cp .env* dist ||:",
