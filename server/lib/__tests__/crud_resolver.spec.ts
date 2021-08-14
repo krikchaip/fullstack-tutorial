@@ -7,7 +7,7 @@ import {
   Resolver
 } from 'type-graphql'
 import { BaseEntity } from 'typeorm'
-import { mockServer } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
 import { mocked } from 'ts-jest/utils'
 
 import { createResolvers } from 'lib/crud_resolver'
@@ -33,8 +33,8 @@ describe('QueryResolver', () => {
 
       let result
 
-      result = await server.query(
-        `#graphql
+      result = await server.executeOperation({
+        query: `#graphql
           query ($id: ID!) {
             entity(id: $id) {
               info {
@@ -43,8 +43,8 @@ describe('QueryResolver', () => {
             }
           }
         `,
-        { id }
-      )
+        variables: { id }
+      })
 
       expect(info).toBeCalledWith(id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -60,8 +60,8 @@ describe('QueryResolver', () => {
       info.mockClear()
       Entity.findOne.mockImplementationOnce(async () => undefined)
 
-      result = await server.query(
-        `#graphql
+      result = await server.executeOperation({
+        query: `#graphql
           query ($id: ID!) {
             entity(id: $id) {
               info {
@@ -70,8 +70,8 @@ describe('QueryResolver', () => {
             }
           }
         `,
-        { id }
-      )
+        variables: { id }
+      })
 
       expect(info).toBeCalledWith(id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -89,8 +89,8 @@ describe('QueryResolver', () => {
       const info = jest.spyOn(QueryResolver.prototype, 'info')
       Entity.findOne.mockImplementationOnce(async () => undefined)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           query {
             entity {
               info {
@@ -99,7 +99,7 @@ describe('QueryResolver', () => {
             }
           }
         `
-      )
+      })
 
       expect(info).toBeCalledWith(undefined)
       expect(result.data).toMatchInlineSnapshot(`
@@ -124,8 +124,8 @@ describe('QueryResolver', () => {
 
       let result
 
-      result = await server.query(
-        `#graphql
+      result = await server.executeOperation({
+        query: `#graphql
           query ($id: ID!) {
             entity(id: $id) {
               list {
@@ -134,8 +134,8 @@ describe('QueryResolver', () => {
             }
           }
         `,
-        { id }
-      )
+        variables: { id }
+      })
 
       expect(list).toBeCalledWith(id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -153,8 +153,8 @@ describe('QueryResolver', () => {
       list.mockClear()
       Entity.findOne.mockImplementationOnce(async () => undefined)
 
-      result = await server.query(
-        `#graphql
+      result = await server.executeOperation({
+        query: `#graphql
           query ($id: ID!) {
             entity(id: $id) {
               list {
@@ -163,8 +163,8 @@ describe('QueryResolver', () => {
             }
           }
         `,
-        { id }
-      )
+        variables: { id }
+      })
 
       expect(list).toBeCalledWith(id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -187,8 +187,8 @@ describe('QueryResolver', () => {
       const list = jest.spyOn(QueryResolver.prototype, 'list')
       Entity.find.mockImplementationOnce(async () => data)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           query {
             entity {
               list {
@@ -197,7 +197,7 @@ describe('QueryResolver', () => {
             }
           }
         `
-      )
+      })
 
       expect(list).toBeCalledWith(undefined)
       expect(result.data).toMatchInlineSnapshot(`
@@ -247,8 +247,8 @@ describe('MutationResolver', () => {
       const create = jest.spyOn(MutationResolver.prototype, 'create')
       create.mockReturnValueOnce(data)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           mutation ($data: EntityCreateType!) {
             entity {
               create(data: $data) {
@@ -258,8 +258,8 @@ describe('MutationResolver', () => {
             }
           }
         `,
-        { data }
-      )
+        variables: { data }
+      })
 
       expect(create).toBeCalledWith(expect.objectContaining(data))
       expect(result.data).toMatchInlineSnapshot(`
@@ -294,8 +294,8 @@ describe('MutationResolver', () => {
       const create = jest.spyOn(MutationResolver.prototype, 'create')
       create.mockReturnValueOnce(data)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           mutation ($data: EntityCreateType!) {
             entity {
               create(data: $data) {
@@ -305,8 +305,8 @@ describe('MutationResolver', () => {
             }
           }
         `,
-        { data }
-      )
+        variables: { data }
+      })
 
       expect(create).toBeCalledWith(expect.objectContaining(data))
       expect(result.data).toMatchInlineSnapshot(`
@@ -333,8 +333,8 @@ describe('MutationResolver', () => {
       const update = jest.spyOn(MutationResolver.prototype, 'update')
       Entity.findOne.mockResolvedValueOnce(item)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           mutation ($id: ID!, $data: EntityUpdateType!) {
             entity(id: $id) {
               update(data: $data) {
@@ -343,8 +343,8 @@ describe('MutationResolver', () => {
             }
           }
         `,
-        { data, id }
-      )
+        variables: { data, id }
+      })
 
       expect(update).toBeCalledWith(data, id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -367,8 +367,8 @@ describe('MutationResolver', () => {
       const update = jest.spyOn(MutationResolver.prototype, 'update')
       Entity.findOne.mockResolvedValueOnce(undefined)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           mutation ($id: ID!, $data: EntityUpdateType!) {
             entity(id: $id) {
               update(data: $data) {
@@ -377,8 +377,8 @@ describe('MutationResolver', () => {
             }
           }
         `,
-        { data, id }
-      )
+        variables: { data, id }
+      })
 
       expect(update).toBeCalledWith(data, id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -401,8 +401,8 @@ describe('MutationResolver', () => {
       const remove = jest.spyOn(MutationResolver.prototype, 'delete')
       Entity.findOne.mockResolvedValueOnce({ ...data, remove: () => data })
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           mutation ($id: ID!) {
             entity(id: $id) {
               delete {
@@ -411,8 +411,8 @@ describe('MutationResolver', () => {
             }
           }
         `,
-        { id }
-      )
+        variables: { id }
+      })
 
       expect(remove).toBeCalledWith(id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -434,8 +434,8 @@ describe('MutationResolver', () => {
       const remove = jest.spyOn(MutationResolver.prototype, 'delete')
       Entity.findOne.mockResolvedValueOnce(undefined)
 
-      const result = await server.query(
-        `#graphql
+      const result = await server.executeOperation({
+        query: `#graphql
           mutation ($id: ID!) {
             entity(id: $id) {
               delete {
@@ -444,8 +444,8 @@ describe('MutationResolver', () => {
             }
           }
         `,
-        { id }
-      )
+        variables: { id }
+      })
 
       expect(remove).toBeCalledWith(id)
       expect(result.data).toMatchInlineSnapshot(`
@@ -494,7 +494,11 @@ function setup(options?: Partial<Parameters<typeof createResolvers>[0]>) {
     validate: false // https://github.com/MichalLytek/type-graphql/issues/150
   })
 
-  const server = mockServer(schema, {}, true)
+  const server = new ApolloServer({
+    schema,
+    mocks: true,
+    mockEntireSchema: false
+  })
 
   return {
     Entity: mocked(Entity),
