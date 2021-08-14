@@ -9,18 +9,22 @@
   ],
   "ignorePatterns": ["**/*.js"],
   "rules": {
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      { "argsIgnorePattern": "^of$", "ignoreRestSiblings": true }
-    ],
     "@typescript-eslint/ban-ts-comment": [
       "error",
       {
-        "ts-ignore": "allow-with-description",
-        "minimumDescriptionLength": 10
+        "minimumDescriptionLength": 10,
+        "ts-ignore": "allow-with-description"
       }
-    ]
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^of$",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "no-console": "error"
   }
 }

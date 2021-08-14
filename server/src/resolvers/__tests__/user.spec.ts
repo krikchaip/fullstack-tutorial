@@ -1,6 +1,6 @@
 import { buildSchemaSync } from 'type-graphql'
 import { Container } from 'typedi'
-import { IMockServer, mockServer } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
 import { Connection, createConnection } from 'typeorm'
 
 import { UserCreateInput } from 'entities'
@@ -8,22 +8,6 @@ import { UserQueryResolver, UserMutationResolver } from '../user'
 import { current } from 'ormconfig'
 
 jest.mock('services/token')
-
-let db: Connection, server: IMockServer
-
-const input: UserCreateInput = { username: 'winner', password: 'zaza555' }
-const query = `#graphql
-  mutation ($username: String!, $password: String!) {
-    user {
-      authenticate(data: { username: $username, password: $password }) {
-        token
-        user {
-          id
-        }
-      }
-    }
-  }
-`
 
 beforeAll(async () => {
   const schema = buildSchemaSync({
@@ -33,21 +17,13 @@ beforeAll(async () => {
   })
 
   db = await createConnection(current)
-  server = mockServer(schema, {}, true)
+  server = new ApolloServer({ schema })
 
   // creating a mock user
-  await server.query(
-    `#graphql
-      mutation ($username: String!, $password: String!) {
-        user {
-          create(data: { username: $username, password: $password }) {
-            id
-          }
-        }
-      }
-    `,
-    input
-  )
+  await server.executeOperation({
+    query: query.create,
+    variables: input.create
+  })
 })
 
 afterAll(async () => {
@@ -57,9 +33,12 @@ afterAll(async () => {
 describe('Mutation', () => {
   describe('authenticate', () => {
     it('"null" when no user found', async () => {
-      const result = await server.query(query, {
-        username: 'DUMB_USER',
-        password: '11111'
+      const result = await server.executeOperation({
+        query: query.authenticate,
+        variables: {
+          username: 'DUMB_USER',
+          password: '11111'
+        }
       })
 
       expect(result.data).toMatchInlineSnapshot(`
@@ -72,9 +51,12 @@ describe('Mutation', () => {
     })
 
     it('"null" when enter a wrong password', async () => {
-      const result = await server.query(query, {
-        username: input.username,
-        password: 'WRONG_PASSWORD'
+      const result = await server.executeOperation({
+        query: query.authenticate,
+        variables: {
+          username: input.create.username,
+          password: 'WRONG_PASSWORD'
+        }
       })
 
       expect(result.data).toMatchInlineSnapshot(`
@@ -87,7 +69,10 @@ describe('Mutation', () => {
     })
 
     it('"{ token, data }" when everything is right', async () => {
-      const result = await server.query(query, input)
+      const result = await server.executeOperation({
+        query: query.authenticate,
+        variables: input.create
+      })
 
       expect(result.data!.user).toEqual({
         authenticate: {
@@ -98,3 +83,36 @@ describe('Mutation', () => {
     })
   })
 })
+
+let db: Connection, server: ApolloServer
+
+const input = {
+  create: {
+    username: 'winner',
+    password: 'zaza555'
+  } as UserCreateInput
+}
+
+const query = {
+  create: `#graphql
+    mutation ($username: String!, $password: String!) {
+      user {
+        create(data: { username: $username, password: $password }) {
+          id
+        }
+      }
+    }
+  `,
+  authenticate: `#graphql
+    mutation ($username: String!, $password: String!) {
+      user {
+        authenticate(data: { username: $username, password: $password }) {
+          token
+          user {
+            id
+          }
+        }
+      }
+    }
+  `
+}

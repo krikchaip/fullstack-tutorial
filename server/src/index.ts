@@ -8,13 +8,13 @@ import { schema } from 'resolvers'
 export async function bootstrap() {
   const server = new ApolloServer({
     schema,
-    playground: true,
     introspection: true
   })
 
   const db = await createConnection(current)
   const info = await server.listen({ port: SERVER_PORT })
 
+  // eslint-disable-next-line no-console
   console.log(`🚀 Server ready at ${info.url}`)
 
   return { server: info.server, db }
