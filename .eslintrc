@@ -25,6 +25,7 @@
       }
     ],
     "@typescript-eslint/no-var-requires": "off",
-    "no-console": "error"
+    "no-console": "error",
+    "no-empty-pattern": "warn"
   }
 }
