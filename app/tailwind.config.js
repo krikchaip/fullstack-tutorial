@@ -1,4 +1,3 @@
-const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 const tsconfig = require('./tsconfig.json')
@@ -21,6 +20,9 @@ module.exports = {
       laptop: '1024px',
       'laptop-l': '1440px'
     },
+    fontFamily: {
+      sans: ['NotoSans', ...defaultTheme.fontFamily.sans]
+    },
     extend: {}
   },
   variants: {
@@ -29,6 +31,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    ...require('./plugins')
   ]
 }
