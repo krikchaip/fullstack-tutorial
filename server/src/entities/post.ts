@@ -2,7 +2,7 @@ import { Entity, Column } from 'typeorm'
 import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsNotEmpty } from 'class-validator'
 
-import { CustomEntity } from 'lib/custom_entity'
+import { CustomEntity } from 'lib/custom-entity'
 
 @ObjectType()
 @Entity()
