@@ -1,1 +1,1 @@
-module.exports = [require('./font-face')]
+module.exports = [require('./font-face'), require('./global')]
