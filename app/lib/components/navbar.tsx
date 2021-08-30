@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react'
 
-import { overrideClassName } from 'lib/utils'
+import { overrideStyles } from 'lib/utils'
 
 import { Logo } from './logo'
 
@@ -10,10 +10,11 @@ export type NavbarProps = DetailedHTMLProps<
 >
 
 export function Navbar(props: NavbarProps) {
-  const { c, ...otherProps } = overrideClassName(props)
+  const { c, s, ...otherProps } = overrideStyles(props)
   return (
     <nav
       className={c('py-4 flex items-center justify-between')}
+      style={s()}
       {...otherProps}
     >
       <Logo />

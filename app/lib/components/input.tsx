@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
-import { overrideClassName } from 'lib/utils'
+import { overrideStyles } from 'lib/utils'
 
 export type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -8,6 +8,6 @@ export type InputProps = DetailedHTMLProps<
 >
 
 export function Input(props: InputProps) {
-  const { c, ...otherProps } = overrideClassName(props)
-  return <input className={c()} {...otherProps} />
+  const { c, s, ...otherProps } = overrideStyles(props)
+  return <input className={c()} style={s()} {...otherProps} />
 }

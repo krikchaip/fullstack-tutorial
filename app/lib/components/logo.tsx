@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react'
 
-import { overrideClassName } from 'lib/utils'
+import { overrideStyles } from 'lib/utils'
 
 export type LogoProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -8,8 +8,12 @@ export type LogoProps = DetailedHTMLProps<
 >
 
 export function Logo(props: LogoProps) {
-  const { c, ...otherProps } = overrideClassName(props)
+  const { c, s, ...otherProps } = overrideStyles(props)
   return (
-    <div className={c('w-32 h-4 bg-gray-300 rounded')} {...otherProps}></div>
+    <div
+      className={c('w-32 h-4 bg-gray-300 rounded')}
+      style={s()}
+      {...otherProps}
+    ></div>
   )
 }

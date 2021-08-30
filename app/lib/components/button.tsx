@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react'
 
-import { overrideClassName } from 'lib/utils'
+import { overrideStyles } from 'lib/utils'
 
 export type ButtonProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -8,6 +8,6 @@ export type ButtonProps = DetailedHTMLProps<
 >
 
 export function Button(props: ButtonProps) {
-  const { c, ...otherProps } = overrideClassName(props)
-  return <button className={c()} {...otherProps} />
+  const { c, s, ...otherProps } = overrideStyles(props)
+  return <button className={c()} style={s()} {...otherProps} />
 }
