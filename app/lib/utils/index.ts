@@ -1,2 +1,2 @@
-export * from './override-class-name'
+export * from './override-styles'
 export * from './combine-provider'
