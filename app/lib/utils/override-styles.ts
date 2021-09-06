@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react'
 import classNames, { Argument } from 'classnames'
+import { prefix } from 'inline-style-prefixer'
 
 /**
  * make `className` and `style` prop overridable from outside (user of this component).
@@ -18,7 +19,7 @@ import classNames, { Argument } from 'classnames'
  *
  * // page.tsx
  * // "custom-class" will append to the end of className.
- * // style object will shallow merge with the existing one inside.
+ * // style object will merge with the existing one inside.
  * return (
  *   <Component
  *     className="custom-class"
@@ -33,6 +34,6 @@ export function overrideStyles<
   return {
     ...otherProps,
     c: (...args: Argument[]) => classNames(...args, className),
-    s: (css?: CSSProperties): CSSProperties => ({ ...css, ...style })
+    s: (css?: CSSProperties): CSSProperties => prefix({ ...css, ...style })
   }
 }
