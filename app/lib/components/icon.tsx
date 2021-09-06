@@ -14,7 +14,7 @@ export function Icon(props: IconProps) {
   const { c, s, name, ...otherProps } = overrideStyles(props)
   return (
     <div
-      className={c('w-6 h-6 text-inherit bg-current bg-center')}
+      className={c('w-6 h-6 inline-block text-inherit bg-current bg-center')}
       style={s({ maskImage: `url("${ICON_PATH}/${name}.svg")` })}
       {...otherProps}
     />
