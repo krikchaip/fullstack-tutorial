@@ -23,11 +23,7 @@ module.exports = {
     fontFamily: {
       sans: ['NotoSans', ...defaultTheme.fontFamily.sans]
     },
-    extend: {
-      colors: {
-        inherit: 'inherit'
-      }
-    }
+    extend: {}
   },
   variants: {
     extend: {}
