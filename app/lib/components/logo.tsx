@@ -11,7 +11,7 @@ export function Logo(props: LogoProps) {
   const { c, s, ...otherProps } = overrideStyles(props)
   return (
     <div
-      className={c('w-32 h-4 bg-gray-300 rounded')}
+      className={c('w-32 h-4', 'bg-gray-300', 'rounded')}
       style={s()}
       {...otherProps}
     ></div>

@@ -15,7 +15,10 @@ export function Icon(props: IconProps) {
   return (
     <div
       className={c(
-        'w-6 h-6 inline-block text-[color:inherit] bg-current bg-center'
+        'w-6 h-6',
+        'inline-block',
+        'text-[color:inherit]',
+        'bg-current bg-center'
       )}
       style={s({ maskImage: `url("${ICON_PATH}/${name}.svg")` })}
       {...otherProps}

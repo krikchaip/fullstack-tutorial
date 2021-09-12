@@ -13,7 +13,7 @@ export function Navbar(props: NavbarProps) {
   const { c, s, ...otherProps } = overrideStyles(props)
   return (
     <nav
-      className={c('py-4 flex items-center justify-between')}
+      className={c('py-4', 'flex items-center justify-between')}
       style={s()}
       {...otherProps}
     >

@@ -21,7 +21,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <label
       className={c(
-        'inline-block relative text-[#828282] leading-[1.375rem] rounded-lg border-solid border border-[#BDBDBD]'
+        'inline-block',
+        'relative',
+        'text-[#828282] leading-[1.375rem]',
+        'rounded-lg border-solid border border-[#BDBDBD]'
       )}
       style={s()}
     >
@@ -30,8 +33,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       )}
       <input
         className={classNames(
-          'w-full p-3 text-[color:inherit] leading-[inherit] rounded-[inherit] border-none transition placeholder-current',
-          { 'pl-11': !!icon }
+          'w-full',
+          'p-3',
+          icon && 'pl-11',
+          'text-[color:inherit] leading-[inherit]',
+          'rounded-[inherit] border-none',
+          'transition',
+          'placeholder-current'
         )}
         ref={ref}
         {...otherProps}
