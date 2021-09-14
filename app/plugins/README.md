@@ -12,6 +12,9 @@ add font faces to base layer with javascript
 - NotoSans 400 Italic
 - NotoSans 700
 - NotoSans 700 Italic
+- Poppins 400
+- Poppins 500
+- Poppins 600
 
 ## [`global.js`](./global.js)
 
