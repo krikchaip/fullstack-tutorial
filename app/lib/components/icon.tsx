@@ -20,7 +20,10 @@ export function Icon(props: IconProps) {
         'text-[color:inherit]',
         'bg-current bg-center'
       )}
-      style={s({ maskImage: `url("${ICON_PATH}/${name}.svg")` })}
+      style={s({
+        maskImage: `url("${ICON_PATH}/${name}.svg")`,
+        maskRepeat: 'no-repeat'
+      })}
       {...otherProps}
     />
   )
