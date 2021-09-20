@@ -46,7 +46,7 @@ module.exports = plugin(({ addBase }) => {
         fontFamily: 'Poppins',
         fontWeight: 400,
         fontStyle: 'normal',
-        src: `url('/font/NotoSans/Poppins-Regular.ttf')`
+        src: `url('/font/Poppins/Poppins-Regular.ttf')`
       }
     })
 
@@ -55,7 +55,7 @@ module.exports = plugin(({ addBase }) => {
         fontFamily: 'Poppins',
         fontWeight: 500,
         fontStyle: 'normal',
-        src: `url('/font/NotoSans/Poppins-Medium.ttf')`
+        src: `url('/font/Poppins/Poppins-Medium.ttf')`
       }
     })
 
@@ -64,7 +64,7 @@ module.exports = plugin(({ addBase }) => {
         fontFamily: 'Poppins',
         fontWeight: 600,
         fontStyle: 'normal',
-        src: `url('/font/NotoSans/Poppins-SemiBold.ttf')`
+        src: `url('/font/Poppins/Poppins-SemiBold.ttf')`
       }
     })
   }

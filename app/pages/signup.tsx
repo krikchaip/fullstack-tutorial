@@ -16,7 +16,7 @@ export function SignupPage() {
   })
 
   return (
-    <div>
+    <div className="font-notosans">
       <div className="space-y-[0.875rem]">
         <h1 className="text-lg font-bold leading-6">
           Join thousands of learners from around the world

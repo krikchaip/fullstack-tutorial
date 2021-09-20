@@ -20,10 +20,12 @@ module.exports = {
       laptop: '1024px',
       'laptop-l': '1440px'
     },
-    fontFamily: {
-      sans: ['NotoSans', ...defaultTheme.fontFamily.sans]
-    },
-    extend: {}
+    extend: {
+      fontFamily: {
+        notosans: ['NotoSans', ...defaultTheme.fontFamily.sans],
+        poppins: ['Poppins', ...defaultTheme.fontFamily.sans]
+      }
+    }
   },
   variants: {
     extend: {}
