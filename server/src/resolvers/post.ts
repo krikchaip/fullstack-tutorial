@@ -2,7 +2,7 @@ import { Resolver } from 'type-graphql'
 import { Service } from 'typedi'
 
 import { Post, PostCreateInput, PostUpdateInput } from 'entities'
-import { createResolvers } from 'lib/crud_resolver'
+import { createResolvers } from 'lib/crud-resolver'
 
 const { QueryResolver, MutationResolver } = createResolvers({
   Entity: Post,

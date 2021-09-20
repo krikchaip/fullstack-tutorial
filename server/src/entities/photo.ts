@@ -7,7 +7,7 @@ import {
   ManyToMany
 } from 'typeorm'
 
-import { CustomEntity } from 'lib/custom_entity'
+import { CustomEntity } from 'lib/custom-entity'
 import { Album } from './album'
 import { Author } from './author'
 import { PhotoMetadata } from './photo_metadata'

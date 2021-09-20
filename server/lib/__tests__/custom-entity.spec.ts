@@ -3,7 +3,7 @@ import { Contains } from 'class-validator'
 
 import { current } from 'ormconfig'
 
-import { CustomEntity } from 'lib/custom_entity'
+import { CustomEntity } from 'lib/custom-entity'
 
 it('data shape', async () => {
   @Entity()

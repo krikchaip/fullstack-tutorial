@@ -3,7 +3,7 @@ import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsNotEmpty, MinLength } from 'class-validator'
 import { hashSync, compareSync } from 'bcrypt'
 
-import { CustomEntity } from 'lib/custom_entity'
+import { CustomEntity } from 'lib/custom-entity'
 import { NotExistsIn } from 'lib/validators'
 
 @ObjectType()

@@ -1,5 +1,8 @@
 import React, { Fragment, ReactElement } from 'react'
 
+/**
+ * a handly utility to prevent [provider hell](https://stackoverflow.com/questions/67467924/how-to-reduce-react-context-hell)
+ */
 export function combineProvider(providers: ReactElement[]) {
   return providers.reduceRight(
     (Children, curr) =>
