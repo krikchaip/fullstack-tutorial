@@ -6,8 +6,21 @@
   },
 
   /* for TailwindCSS extension */
+  /* ref: https://github.com/ben-rogerson/twin.macro/discussions/227 */
   "css.validate": false,
+  "scss.validate": false,
   "editor.quickSuggestions": {
     "strings": true
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)", // tw`...`
+    "tw=\"([^\"]*)", // <div tw="..." />
+    "tw={\"([^\"}]*)", // <div tw={"..."} />
+    "tw\\.\\w+`([^`]*)", // tw.xxx`...`
+    "tw\\(.*?\\)`([^`]*)" // tw(Component)`...`
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
   }
 }
