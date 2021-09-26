@@ -1,15 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-const tsconfig = require('./tsconfig.json')
-
-const dirs = Object.keys(tsconfig.compilerOptions.paths).map(path =>
-  path.replace('/*', '')
-)
-
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig}*/
 module.exports = {
-  mode: 'jit',
-  purge: [`./{${dirs.join(',')}}/**/*.{ts,tsx}`],
   darkMode: false,
   theme: {
     screens: {
@@ -26,9 +18,6 @@ module.exports = {
         poppins: ['Poppins', ...defaultTheme.fontFamily.sans]
       }
     }
-  },
-  variants: {
-    extend: {}
   },
   plugins: [
     require('@tailwindcss/forms'),
