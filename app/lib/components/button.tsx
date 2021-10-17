@@ -1,6 +1,5 @@
+import tw from 'twin.macro'
 import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react'
-
-import { overrideStyles } from 'lib/utils'
 
 export type ButtonProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -11,20 +10,19 @@ export type ButtonProps = DetailedHTMLProps<
 }
 
 export function Button(props: ButtonProps) {
-  const { c, s, variant = 'solid', ...otherProps } = overrideStyles(props)
+  const { variant = 'solid', ...otherProps } = props
   return (
     <button
-      className={c(
-        'h-10',
-        'flex items-center justify-center',
-        'text-center',
-        variant === 'solid' && 'text-white',
-        'rounded-lg',
-        'hover:bg-opacity-80 active:bg-opacity-95',
-        'active:ring-2 focus-visible:outline-none focus-visible:ring-2',
-        'transition'
-      )}
-      style={s()}
+      css={[
+        tw`h-10`,
+        tw`flex items-center justify-center`,
+        tw`text-center`,
+        variant === 'solid' && tw`text-white`,
+        tw`rounded-lg`,
+        tw`hover:bg-opacity-80 active:bg-opacity-95`,
+        tw`active:ring-2 focus-visible:outline-none focus-visible:ring-2`,
+        tw`transition`
+      ]}
       {...otherProps}
     />
   )

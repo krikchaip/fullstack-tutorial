@@ -1,6 +1,5 @@
+import tw from 'twin.macro'
 import { DetailedHTMLProps, HTMLAttributes } from 'react'
-
-import { overrideStyles } from 'lib/utils'
 
 export type IconProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -11,19 +10,16 @@ export type IconProps = DetailedHTMLProps<
 }
 
 export function Icon(props: IconProps) {
-  const { c, s, name, ...otherProps } = overrideStyles(props)
+  const { name, ...otherProps } = props
   return (
     <div
-      className={c(
-        'w-6 h-6',
-        'inline-block',
-        'text-[color:inherit]',
-        'bg-current bg-center'
-      )}
-      style={s({
-        maskImage: `url("${ICON_PATH}/${name}.svg")`,
-        maskRepeat: 'no-repeat'
-      })}
+      css={[
+        tw`w-6 h-6`,
+        tw`inline-block`,
+        tw`text-[color:inherit]`,
+        tw`bg-current bg-center`,
+        { maskImage: `url(${ICON_PATH}/${name}.svg)`, maskRepeat: 'no-repeat' }
+      ]}
       {...otherProps}
     />
   )

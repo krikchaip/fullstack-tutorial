@@ -1,7 +1,5 @@
+import tw from 'twin.macro'
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes } from 'react'
-import classNames from 'classnames'
-
-import { overrideStyles } from 'lib/utils'
 
 import { Icon } from './icon'
 
@@ -17,30 +15,27 @@ export type InputProps = DetailedHTMLProps<
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { c, s, icon, error, ...otherProps } = overrideStyles(props)
+  const { icon, error, ...otherProps } = props
   return (
     <label
-      className={c(
-        'inline-block',
-        'relative',
-        'text-[#828282] leading-[1.375rem]',
-        'rounded-lg border-solid border border-[#BDBDBD]'
-      )}
-      style={s()}
+      css={[
+        tw`inline-block`,
+        tw`relative`,
+        tw`text-[#828282] leading-[1.375rem]`,
+        tw`rounded-lg border-solid border border-[#BDBDBD]`
+      ]}
     >
-      {icon && (
-        <Icon className="absolute top-3 left-3 -translate-y-px" name={icon} />
-      )}
+      {icon && <Icon tw="absolute top-3 left-3 -translate-y-px" name={icon} />}
       <input
-        className={classNames(
-          'w-full',
-          'p-3',
-          icon && 'pl-11',
-          'text-[color:inherit] leading-[inherit]',
-          'rounded-[inherit] border-none',
-          'transition',
-          'placeholder-current'
-        )}
+        css={[
+          tw`w-full`,
+          tw`p-3`,
+          icon && tw`pl-11`,
+          tw`text-[color:inherit] leading-[inherit]`,
+          tw`rounded-[inherit] border-none`,
+          tw`transition`,
+          tw`placeholder-current`
+        ]}
         ref={ref}
         {...otherProps}
       />

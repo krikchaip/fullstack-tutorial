@@ -1,6 +1,5 @@
+import tw from 'twin.macro'
 import { DetailedHTMLProps, HTMLAttributes } from 'react'
-
-import { overrideStyles } from 'lib/utils'
 
 export type LogoProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -8,11 +7,10 @@ export type LogoProps = DetailedHTMLProps<
 >
 
 export function Logo(props: LogoProps) {
-  const { c, s, ...otherProps } = overrideStyles(props)
+  const { ...otherProps } = props
   return (
     <div
-      className={c('w-32 h-4', 'bg-gray-300', 'rounded')}
-      style={s()}
+      css={[tw`w-32 h-4`, tw`bg-gray-300`, tw`rounded`]}
       {...otherProps}
     ></div>
   )
