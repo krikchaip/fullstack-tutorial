@@ -13,6 +13,14 @@ module.exports = {
       'laptop-l': '1440px'
     },
     extend: {
+      colors: {
+        primary: '#2F80ED',
+        secondary: '#828282',
+        faded: '#BDBDBD',
+        link: '#2D9CDB',
+        plain: '#333333',
+        danger: '#EB5757'
+      },
       fontFamily: {
         notosans: ['NotoSans', ...defaultTheme.fontFamily.sans],
         poppins: ['Poppins', ...defaultTheme.fontFamily.sans]
