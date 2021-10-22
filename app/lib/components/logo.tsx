@@ -10,7 +10,12 @@ export function Logo(props: LogoProps) {
   const { ...otherProps } = props
   return (
     <div
-      css={[tw`w-32 h-4`, tw`bg-gray-300`, tw`rounded`]}
+      css={[
+        tw`w-32 h-[18px]`,
+        tw`bg-cover bg-center`,
+        tw`rounded`,
+        { backgroundImage: `url('/image/logo.png')` }
+      ]}
       {...otherProps}
     ></div>
   )
