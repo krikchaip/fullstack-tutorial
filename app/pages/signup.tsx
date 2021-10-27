@@ -1,6 +1,7 @@
+import tw from 'twin.macro'
 import { useForm } from 'react-hook-form'
 
-import { Input, Button, Icon } from 'lib/components'
+import { Input, Button, Icon, Logo } from 'lib/components'
 
 export function SignupPage() {
   const {
@@ -16,7 +17,15 @@ export function SignupPage() {
   })
 
   return (
-    <div tw="font-notosans">
+    <div
+      css={[
+        tw`font-notosans laptop:p-10`,
+        tw`tablet:(max-w-md p-8)`,
+        tw`tablet:(absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2)`,
+        tw`tablet:(border border-faded rounded-3xl)`
+      ]}
+    >
+      <Logo tw="hidden tablet:(block mb-7)" />
       <div tw="space-y-[0.875rem]">
         <h1 tw="text-lg font-bold leading-6">
           Join thousands of learners from around the world
