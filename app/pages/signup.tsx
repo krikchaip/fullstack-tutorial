@@ -58,42 +58,42 @@ export function SignupPage() {
             })}
           />
         </div>
-        <Button tw="bg-[#2F80ED]" type="submit">
+        <Button tw="bg-primary" type="submit">
           Start coding now
         </Button>
       </form>
-      <p tw="text-sm text-[#828282] text-center">
+      <p tw="text-sm text-secondary text-center">
         or continue with these social profile
       </p>
       <div tw="py-6 flex justify-center items-center space-x-5">
         <Button
           variant="outline"
-          tw="w-11 h-11 rounded-full text-[#828282] border"
+          tw="w-11 h-11 rounded-full text-secondary border"
         >
           <Icon name="google" tw="w-[1.125rem] h-[1.125rem]" />
         </Button>
         <Button
           variant="outline"
-          tw="w-11 h-11 rounded-full text-[#828282] border"
+          tw="w-11 h-11 rounded-full text-secondary border"
         >
           <Icon name="facebook-square" tw="w-[1.125rem] h-[1.125rem]" />
         </Button>
         <Button
           variant="outline"
-          tw="w-11 h-11 rounded-full text-[#828282] border"
+          tw="w-11 h-11 rounded-full text-secondary border"
         >
           <Icon name="twitter" tw="w-[1.125rem] h-[1.125rem]" />
         </Button>
         <Button
           variant="outline"
-          tw="w-11 h-11 rounded-full text-[#828282] border"
+          tw="w-11 h-11 rounded-full text-secondary border"
         >
           <Icon name="github" tw="w-[1.125rem] h-[1.125rem]" />
         </Button>
       </div>
-      <p tw="text-sm text-[#828282] text-center">
+      <p tw="text-sm text-secondary text-center">
         Already a member?{' '}
-        <a href="/login" tw="text-[#2F80ED] hover:underline">
+        <a href="/login" tw="text-primary hover:underline">
           Login
         </a>
       </p>
