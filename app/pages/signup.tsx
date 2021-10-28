@@ -41,13 +41,21 @@ export function SignupPage() {
             type="email"
             icon="mail.solid"
             placeholder="Email"
-            {...register('email', { required: true })}
+            showError
+            error={errors.email?.message}
+            {...register('email', {
+              required: { value: true, message: 'Please enter an email!' }
+            })}
           />
           <Input
             type="password"
             icon="lock-closed.solid"
             placeholder="Password"
-            {...register('password', { required: true })}
+            showError
+            error={errors.password?.message}
+            {...register('password', {
+              required: { value: true, message: 'Please enter a password!' }
+            })}
           />
         </div>
         <Button tw="bg-[#2F80ED]" type="submit">
