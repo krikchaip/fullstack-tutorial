@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form'
 
 import { Input, Button, Icon, Logo } from 'lib/components'
 
-export function SignupPage() {
+export function LoginPage() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<SignupForm>()
+  } = useForm<LoginForm>()
 
-  const onSignup = handleSubmit(async data => {
+  const onLogin = handleSubmit(async data => {
     // console.log(data)
 
     return
@@ -26,16 +26,8 @@ export function SignupPage() {
       ]}
     >
       <Logo tw="hidden tablet:(block mb-7)" />
-      <div tw="space-y-[0.875rem]">
-        <h1 tw="text-lg font-bold leading-6">
-          Join thousands of learners from around the world
-        </h1>
-        <p>
-          Master web development by making real-life projects. There are
-          multiple paths for you to choose
-        </p>
-      </div>
-      <form tw="my-8 flex flex-col space-y-6" onSubmit={onSignup}>
+      <h1 tw="text-lg font-bold leading-6">Login</h1>
+      <form tw="my-8 flex flex-col space-y-6" onSubmit={onLogin}>
         <div tw="flex flex-col space-y-4">
           <Input
             type="email"
@@ -59,7 +51,7 @@ export function SignupPage() {
           />
         </div>
         <Button tw="bg-primary" type="submit">
-          Start coding now
+          Login
         </Button>
       </form>
       <p tw="text-sm text-secondary text-center">
@@ -92,15 +84,15 @@ export function SignupPage() {
         </Button>
       </div>
       <p tw="text-sm text-secondary text-center">
-        Already a member?{' '}
-        <a href="/login" tw="text-primary hover:underline">
-          Login
+        Don't have an account yet?{' '}
+        <a href="/signup" tw="text-primary hover:underline">
+          Register
         </a>
       </p>
     </div>
   )
 }
 
-export type SignupForm = { email: string; password: string }
+export type LoginForm = { email: string; password: string }
 
-export default SignupPage
+export default LoginPage
