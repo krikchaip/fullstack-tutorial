@@ -18,6 +18,7 @@ export function Button(props: ButtonProps) {
         tw`flex items-center justify-center`,
         tw`text-center`,
         variant === 'solid' && tw`text-white`,
+        variant === 'outline' && tw`bg-transparent border border-current`,
         tw`rounded-lg`,
         tw`hover:bg-opacity-80 active:bg-opacity-95`,
         tw`active:ring-2 focus-visible:outline-none focus-visible:ring-2`,

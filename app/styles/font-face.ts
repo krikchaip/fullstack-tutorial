@@ -1,6 +1,5 @@
 import { css } from 'twin.macro'
 
-// TODO: NotoSans 600
 const notosans = css`
   @font-face {
     font-family: NotoSans;
