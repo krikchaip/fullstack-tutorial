@@ -1,10 +1,7 @@
 import tw from 'twin.macro'
-import Img from 'next/image'
 
 import { Button } from 'lib/components'
 
-/* eslint-disable @next/next/no-img-element */
-// TODO: use <Image /> component from 'next/image' instead
 export function ProfilePage() {
   const fields: ProfileField[] = [
     {
@@ -80,6 +77,7 @@ export function ProfilePage() {
             </span>
             <div tw="max-w-[60%] tablet:(w-[70%] max-w-none)">
               {data.type === 'image' && (
+                /* eslint-disable @next/next/no-img-element */
                 <img
                   css={[
                     tw`w-16 h-16 rounded-lg`,
