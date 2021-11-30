@@ -1,8 +1,11 @@
 import tw from 'twin.macro'
+import { useRouter } from 'next/router'
 
 import { Button } from 'lib/components'
 
 export function ProfilePage() {
+  const router = useRouter()
+
   const fields: ProfileField[] = [
     {
       type: 'image',
@@ -58,7 +61,11 @@ export function ProfilePage() {
               Some info may be visible to other people
             </p>
           </div>
-          <Button variant="outline" tw="px-8 py-2 text-secondary font-medium">
+          <Button
+            variant="outline"
+            tw="px-8 py-2 text-secondary font-medium"
+            onClick={() => router.push('/profile/edit')}
+          >
             Edit
           </Button>
         </div>
