@@ -48,7 +48,12 @@ export function ProfileEditPage() {
           placeholder="Enter your name..."
           tw="border-secondary placeholder-faded"
         />
-        {/* <Textarea placeholder="Enter your name..." /> */}
+        <Textarea
+          label="Bio"
+          placeholder="Enter your bio..."
+          rows={3}
+          tw="text-xs resize-none border-secondary placeholder-faded"
+        />
         <Input
           type="tel"
           label="Phone"
