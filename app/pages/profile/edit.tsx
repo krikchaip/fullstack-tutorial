@@ -2,10 +2,22 @@ import tw from 'twin.macro'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
-import { Button, Input } from 'lib/components'
+import { Button, Input, Textarea } from 'lib/components'
 
 export function ProfileEditPage() {
   const router = useRouter()
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<ProfileEditForm>()
+
+  const onProfileEdit = handleSubmit(async data => {
+    // console.log(data)
+
+    return
+  })
 
   return (
     <div tw="mb-4">
@@ -18,6 +30,7 @@ export function ProfileEditPage() {
       <div
         css={[
           tw`mx-auto`,
+          tw`space-y-6`,
           tw`tablet:(max-w-[80%] px-8 py-6 border rounded-xl)`,
           tw`laptop:(max-w-3xl px-12 py-7)`
         ]}
@@ -42,42 +55,47 @@ export function ProfileEditPage() {
           </Button>
         </div>
         {/* TODO: map each field like on index page and use `useFieldArray` */}
-        <Input
-          type="text"
-          label="Name"
-          placeholder="Enter your name..."
-          tw="border-secondary placeholder-faded"
-        />
-        <Textarea
-          label="Bio"
-          placeholder="Enter your bio..."
-          rows={3}
-          tw="text-xs resize-none border-secondary placeholder-faded"
-        />
-        <Input
-          type="tel"
-          label="Phone"
-          placeholder="Enter your phone..."
-          tw="border-secondary placeholder-faded"
-        />
-        <Input
-          type="email"
-          label="Email"
-          placeholder="Enter your email..."
-          tw="border-secondary placeholder-faded"
-        />
-        <Input
-          type="password"
-          label="Password"
-          placeholder="Enter your password..."
-          tw="border-secondary placeholder-faded"
-        />
-        <Button type="submit" tw="px-6 py-2 bg-primary">
-          Save
-        </Button>
+        <form tw="flex flex-col space-y-6" onSubmit={onProfileEdit}>
+          {/* TODO: <ImageUpload /> */}
+          <Input
+            type="text"
+            label="Name"
+            placeholder="Enter your name..."
+            tw="text-xs border-secondary placeholder-faded"
+          />
+          <Textarea
+            label="Bio"
+            placeholder="Enter your bio..."
+            rows={3}
+            tw="text-xs resize-none border-secondary placeholder-faded"
+          />
+          <Input
+            type="tel"
+            label="Phone"
+            placeholder="Enter your phone..."
+            tw="text-xs border-secondary placeholder-faded"
+          />
+          <Input
+            type="email"
+            label="Email"
+            placeholder="Enter your email..."
+            tw="text-xs border-secondary placeholder-faded"
+          />
+          <Input
+            type="password"
+            label="Password"
+            placeholder="Enter your password..."
+            tw="text-xs border-secondary placeholder-faded"
+          />
+          <Button type="submit" tw="px-6 py-2 bg-primary">
+            Save
+          </Button>
+        </form>
       </div>
     </div>
   )
 }
+
+export type ProfileEditForm = any
 
 export default ProfileEditPage
