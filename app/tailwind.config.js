@@ -16,6 +16,7 @@ module.exports = {
       colors: {
         primary: '#2F80ED',
         secondary: '#828282',
+        dimmed: '#4f4f4f',
         faded: '#BDBDBD',
         lite: '#E0E0E0',
         link: '#2D9CDB',

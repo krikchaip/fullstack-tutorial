@@ -15,10 +15,13 @@ export type InputProps = DetailedHTMLProps<
 
   /** display error message below the input */
   showError?: boolean
+
+  /** text label above the input */
+  label?: string
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { icon, error, showError, ...otherProps } = props
+  const { icon, error, showError, label, ...otherProps } = props
   return (
     <label
       css={[
@@ -27,6 +30,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         tw`text-secondary leading-[1.375rem]`
       ]}
     >
+      {label && (
+        <div tw="mb-0.5 font-medium text-xs text-dimmed" aria-label={label}>
+          {label}
+        </div>
+      )}
       {icon && <Icon tw="absolute top-3 left-3 -translate-y-px" name={icon} />}
       <input
         css={[
