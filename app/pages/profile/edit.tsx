@@ -55,7 +55,10 @@ export function ProfileEditPage() {
           </Button>
         </div>
         {/* TODO: map each field like on index page and use `useFieldArray` */}
-        <form tw="flex flex-col space-y-6" onSubmit={onProfileEdit}>
+        <form
+          css={[tw`flex flex-col space-y-6`, tw`tablet:w-[55%]`]}
+          onSubmit={onProfileEdit}
+        >
           {/* TODO: <ImageUpload /> */}
           <Input
             type="text"
@@ -87,7 +90,7 @@ export function ProfileEditPage() {
             placeholder="Enter your password..."
             tw="text-xs border-secondary placeholder-faded"
           />
-          <Button type="submit" tw="px-6 py-2 bg-primary">
+          <Button type="submit" tw="px-6 py-2 bg-primary tablet:w-20">
             Save
           </Button>
         </form>
