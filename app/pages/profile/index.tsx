@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import tw from 'twin.macro'
 import { useRouter } from 'next/router'
 
@@ -84,7 +86,6 @@ export function ProfilePage() {
             </span>
             <div tw="max-w-[60%] tablet:(w-[70%] max-w-none)">
               {data.type === 'image' && (
-                /* eslint-disable @next/next/no-img-element */
                 <img
                   css={[
                     tw`w-16 h-16 rounded-lg`,
