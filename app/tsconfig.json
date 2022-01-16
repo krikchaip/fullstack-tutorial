@@ -5,6 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -17,9 +18,11 @@
     "paths": {
       "lib/*": ["lib/*"],
       "pages/*": ["pages/*"],
+      "public/*": ["public/*"],
+      "styles/*": ["styles/*"],
       "test/*": ["test/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts?(x)"],
-  "exclude": ["node_modules", "**/*.spec.ts?(x)"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

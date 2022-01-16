@@ -10,7 +10,7 @@ import { BaseEntity } from 'typeorm'
 import { ApolloServer } from 'apollo-server'
 import { mocked } from 'ts-jest/utils'
 
-import { createResolvers } from 'lib/crud_resolver'
+import { createResolvers } from 'lib/crud-resolver'
 
 jest.mock('typeorm/repository/BaseEntity')
 

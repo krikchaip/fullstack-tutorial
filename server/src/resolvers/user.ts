@@ -9,7 +9,7 @@ import {
   UserUpdateInput
 } from 'entities'
 import { Token } from 'services'
-import { createResolvers } from 'lib/crud_resolver'
+import { createResolvers } from 'lib/crud-resolver'
 
 const { QueryResolver, MutationResolver, EntityMutation } = createResolvers({
   Entity: User,

@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany } from 'typeorm'
 
-import { CustomEntity } from 'lib/custom_entity'
+import { CustomEntity } from 'lib/custom-entity'
 import { Photo } from './photo'
 
 @Entity()
