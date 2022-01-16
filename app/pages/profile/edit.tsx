@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
-import { Button, Input, Textarea } from 'lib/components'
+import { Button, Input, Textarea, Profile } from 'lib/components'
 
 export function ProfileEditPage() {
   const router = useRouter()
@@ -59,7 +59,7 @@ export function ProfileEditPage() {
           css={[tw`flex flex-col space-y-6`, tw`tablet:w-[55%]`]}
           onSubmit={onProfileEdit}
         >
-          {/* TODO: <ImageUpload /> */}
+          <Profile.ImageUpload />
           <Input
             type="text"
             label="Name"
