@@ -26,6 +26,9 @@ module.exports = {
       fontFamily: {
         notosans: ['NotoSans', ...defaultTheme.fontFamily.sans],
         poppins: ['Poppins', ...defaultTheme.fontFamily.sans]
+      },
+      backgroundSize: {
+        ...defaultTheme.spacing
       }
     }
   },
